@@ -7,4 +7,6 @@ package com.innopolis.sergeypinkevich.popularmovies.utils;
 public interface AndroidWrapper {
 
     boolean isNetworkAvailable();
+
+    String getFilterTypeFromSharedPreference();
 }

@@ -1,6 +1,9 @@
 package com.innopolis.sergeypinkevich.popularmovies.feature.splash;
 
 import com.arellomobile.mvp.MvpView;
+import com.innopolis.sergeypinkevich.popularmovies.model.Movie;
+
+import java.util.List;
 
 /**
  * @author Sergey Pinkevich
@@ -8,5 +11,5 @@ import com.arellomobile.mvp.MvpView;
 
 public interface SplashView extends MvpView {
 
-    void startMainScreen();
+    void startMainScreen(List<Movie> movies);
 }
