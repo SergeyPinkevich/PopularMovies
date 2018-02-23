@@ -16,7 +16,7 @@ import javax.inject.Inject;
 
 import internal.di.BaseApp;
 
-public class SplashActivity extends MvpAppCompatActivity implements SplashView {
+public class SplashActivity extends AppCompatActivity implements SplashView {
 
     @Inject
     @InjectPresenter

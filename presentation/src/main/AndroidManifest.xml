@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.innopolis.sergeypinkevich.popularmovies">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name="internal.di.BaseApp"
         android:allowBackup="false"
