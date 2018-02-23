@@ -9,7 +9,6 @@ buildscript {
         retrofit_version = '2.3.0'
         room_version = '1.0.0'
         moxy_version = '1.5.3'
-        moxy_annotation_version = '1.4.5'
         toasty_version = '1.2.8'
         picasso_version = '2.5.2'
     }

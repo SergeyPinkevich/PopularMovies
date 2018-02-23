@@ -14,10 +14,6 @@ import internal.di.module.SplashModule;
 /**
  * @author Sergey Pinkevich
  */
-@RegisterMoxyReflectorPackages({
-        "com.innopolis.sergeypinkevich.popularmovies.data",
-        "com.innopolis.sergeypinkevich.popularmovies.domain"
-})
 public class BaseApp extends Application {
 
     public static AppComponent component;
