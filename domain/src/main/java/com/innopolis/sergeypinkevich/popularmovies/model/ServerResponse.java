@@ -1,15 +1,19 @@
 package com.innopolis.sergeypinkevich.popularmovies.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Sergey Pinkevich
  */
 
-public class ServerResponse {
+public class ServerResponse implements Parcelable {
 
     @SerializedName("page")
     @Expose
@@ -55,4 +59,40 @@ public class ServerResponse {
     public void setResults(List<Movie> results) {
         this.results = results;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.page);
+        dest.writeInt(this.totalResults);
+        dest.writeInt(this.totalPages);
+        dest.writeList(this.results);
+    }
+
+    public ServerResponse() {
+    }
+
+    protected ServerResponse(Parcel in) {
+        this.page = in.readInt();
+        this.totalResults = in.readInt();
+        this.totalPages = in.readInt();
+        this.results = new ArrayList<Movie>();
+        in.readList(this.results, Movie.class.getClassLoader());
+    }
+
+    public static final Creator<ServerResponse> CREATOR = new Creator<ServerResponse>() {
+        @Override
+        public ServerResponse createFromParcel(Parcel source) {
+            return new ServerResponse(source);
+        }
+
+        @Override
+        public ServerResponse[] newArray(int size) {
+            return new ServerResponse[size];
+        }
+    };
 }

@@ -1,5 +1,6 @@
 package internal.di.component;
 
+import com.innopolis.sergeypinkevich.popularmovies.feature.main.MainActivity;
 import com.innopolis.sergeypinkevich.popularmovies.feature.splash.SplashActivity;
 
 import javax.inject.Singleton;
@@ -18,4 +19,6 @@ import internal.di.module.SplashModule;
 public interface AppComponent {
 
     void inject(SplashActivity activity);
+
+    void inject(MainActivity activity);
 }

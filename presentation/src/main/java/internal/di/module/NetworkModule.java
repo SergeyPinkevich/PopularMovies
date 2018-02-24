@@ -17,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class NetworkModule {
 
-    public static final String BASE_URL = "https://developers.themoviedb.org/3/";
+    public static final String BASE_URL = "https://api.themoviedb.org/";
 
     @Singleton
     @Provides

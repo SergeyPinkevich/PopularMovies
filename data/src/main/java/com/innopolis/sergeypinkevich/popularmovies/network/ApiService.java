@@ -14,6 +14,6 @@ public interface ApiService {
 
     String API_KEY = "api_key";
 
-    @GET("/movie/popular")
+    @GET("/3/movie/popular")
     Single<ServerResponse> getPopularMovies(@Query(API_KEY) String apiKey);
 }
