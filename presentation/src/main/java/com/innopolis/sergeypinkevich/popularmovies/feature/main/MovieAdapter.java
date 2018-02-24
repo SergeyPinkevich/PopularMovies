@@ -1,5 +1,7 @@
 package com.innopolis.sergeypinkevich.popularmovies.feature.main;
 
+import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +32,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     @Override
     public MovieViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_item, parent, false);
+        CardView view = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_item, parent, false);
         return new MovieViewHolder(view);
     }
 
@@ -53,16 +55,16 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         @BindView(R.id.movie_release_date)
         TextView movieReleaseDate;
 
-        View view;
+        CardView cardView;
 
-        public MovieViewHolder(View v) {
+        public MovieViewHolder(CardView v) {
             super(v);
-            view = v;
+            cardView = v;
             ButterKnife.bind(this, v);
         }
 
         public void bind(Movie movie) {
-            Picasso.with(view.getContext()).load("https://image.tmdb.org/t/p/w500" + movie.getPosterPath()).into(moviePoster);
+            Picasso.with(cardView.getContext()).load("https://image.tmdb.org/t/p/w500" + movie.getPosterPath()).into(moviePoster);
             movieTitle.setText(movie.getTitle());
             movieReleaseDate.setText(movie.getReleaseDate());
         }
