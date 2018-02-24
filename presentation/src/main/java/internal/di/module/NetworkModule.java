@@ -1,5 +1,6 @@
 package internal.di.module;
 
+import com.google.gson.GsonBuilder;
 import com.innopolis.sergeypinkevich.popularmovies.network.ApiService;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
@@ -24,7 +25,7 @@ public class NetworkModule {
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().setLenient().create()))
                 .build();
     }
 

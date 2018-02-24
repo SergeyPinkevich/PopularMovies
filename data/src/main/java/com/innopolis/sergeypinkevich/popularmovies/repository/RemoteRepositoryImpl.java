@@ -1,10 +1,8 @@
 package com.innopolis.sergeypinkevich.popularmovies.repository;
 
-import com.innopolis.sergeypinkevich.popularmovies.model.Movie;
+import com.innopolis.sergeypinkevich.popularmovies.model.ServerResponse;
 import com.innopolis.sergeypinkevich.popularmovies.network.ApiService;
 import com.innopolis.sergeypinkevich.popularmovies.network.RemoteRepository;
-
-import java.util.List;
 
 import io.reactivex.Single;
 
@@ -23,7 +21,7 @@ public class RemoteRepositoryImpl implements RemoteRepository {
     }
 
     @Override
-    public Single<List<Movie>> getPopularMoviesFromNetwork() {
+    public Single<ServerResponse> getPopularMoviesFromNetwork() {
         return apiService.getPopularMovies(API_KEY);
     }
 }

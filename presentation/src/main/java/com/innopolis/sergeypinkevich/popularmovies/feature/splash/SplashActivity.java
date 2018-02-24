@@ -9,6 +9,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.innopolis.sergeypinkevich.popularmovies.R;
 import com.innopolis.sergeypinkevich.popularmovies.feature.main.MainActivity;
 import com.innopolis.sergeypinkevich.popularmovies.model.Movie;
+import com.innopolis.sergeypinkevich.popularmovies.model.ServerResponse;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class SplashActivity extends AppCompatActivity implements SplashView {
     }
 
     @Override
-    public void startMainScreen(List<Movie> movies) {
+    public void startMainScreen(ServerResponse response) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();

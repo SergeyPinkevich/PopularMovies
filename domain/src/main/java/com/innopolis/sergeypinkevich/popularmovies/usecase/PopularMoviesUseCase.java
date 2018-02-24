@@ -1,11 +1,9 @@
 package com.innopolis.sergeypinkevich.popularmovies.usecase;
 
-import com.innopolis.sergeypinkevich.popularmovies.model.Movie;
+import com.innopolis.sergeypinkevich.popularmovies.model.ServerResponse;
 import com.innopolis.sergeypinkevich.popularmovies.network.LocalRepository;
 import com.innopolis.sergeypinkevich.popularmovies.network.RemoteRepository;
 import com.innopolis.sergeypinkevich.popularmovies.utils.AndroidWrapper;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -31,7 +29,7 @@ public class PopularMoviesUseCase {
         this.localRepository = localRepository;
     }
 
-    public Single<List<Movie>> getPopularMovies() {
+    public Single<ServerResponse> getPopularMovies() {
         if (wrapper.isNetworkAvailable()) {
             return remoteRepository.getPopularMoviesFromNetwork();
         } else {

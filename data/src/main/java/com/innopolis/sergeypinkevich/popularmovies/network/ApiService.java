@@ -1,8 +1,6 @@
 package com.innopolis.sergeypinkevich.popularmovies.network;
 
-import com.innopolis.sergeypinkevich.popularmovies.model.Movie;
-
-import java.util.List;
+import com.innopolis.sergeypinkevich.popularmovies.model.ServerResponse;
 
 import io.reactivex.Single;
 import retrofit2.http.GET;
@@ -17,5 +15,5 @@ public interface ApiService {
     String API_KEY = "api_key";
 
     @GET("/movie/popular")
-    Single<List<Movie>> getPopularMovies(@Query(API_KEY) String apiKey);
+    Single<ServerResponse> getPopularMovies(@Query(API_KEY) String apiKey);
 }

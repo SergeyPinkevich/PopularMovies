@@ -1,8 +1,6 @@
 package com.innopolis.sergeypinkevich.popularmovies.network;
 
-import com.innopolis.sergeypinkevich.popularmovies.model.Movie;
-
-import java.util.List;
+import com.innopolis.sergeypinkevich.popularmovies.model.ServerResponse;
 
 import io.reactivex.Single;
 
@@ -12,5 +10,5 @@ import io.reactivex.Single;
 
 public interface RemoteRepository {
 
-    Single<List<Movie>> getPopularMoviesFromNetwork();
+    Single<ServerResponse> getPopularMoviesFromNetwork();
 }
