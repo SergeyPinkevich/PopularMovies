@@ -10,5 +10,5 @@ import io.reactivex.Single;
 
 public interface RemoteRepository {
 
-    Single<ServerResponse> getPopularMoviesFromNetwork();
+    Single<ServerResponse> getPopularMoviesFromNetwork(String language);
 }

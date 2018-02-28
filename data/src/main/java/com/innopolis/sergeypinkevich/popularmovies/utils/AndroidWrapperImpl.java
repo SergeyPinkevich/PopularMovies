@@ -2,9 +2,16 @@ package com.innopolis.sergeypinkevich.popularmovies.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
+import android.os.LocaleList;
 import android.preference.PreferenceManager;
+
+import com.innopolis.sergeypinkevich.popularmovies.usecase.FilterMoviesUseCase;
+
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -15,7 +22,6 @@ import javax.inject.Inject;
 public class AndroidWrapperImpl implements AndroidWrapper {
 
     public static final String FILTER_KEY = "filter_key";
-    public static final String DEFAULT_FILTER = "popular";
 
     private Context context;
 
@@ -33,6 +39,17 @@ public class AndroidWrapperImpl implements AndroidWrapper {
     @Override
     public String getFilterTypeFromSharedPreference() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return preferences.getString(FILTER_KEY, DEFAULT_FILTER);
+        return preferences.getString(FILTER_KEY, FilterMoviesUseCase.DEFAULT_FILTER);
+    }
+
+    @Override
+    public String getLocalLanguage() {
+        Locale locale;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            locale = Resources.getSystem().getConfiguration().getLocales().get(0);
+        } else {
+            locale = Resources.getSystem().getConfiguration().locale;
+        }
+        return locale.getLanguage();
     }
 }

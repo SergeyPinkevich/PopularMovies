@@ -23,7 +23,6 @@ public class PopularMoviesUseCase {
     public PopularMoviesUseCase(AndroidWrapper wrapper,
                                 RemoteRepository remoteRepository,
                                 LocalRepository localRepository) {
-
         this.wrapper = wrapper;
         this.remoteRepository = remoteRepository;
         this.localRepository = localRepository;
@@ -31,7 +30,7 @@ public class PopularMoviesUseCase {
 
     public Single<ServerResponse> getPopularMovies() {
         if (wrapper.isNetworkAvailable()) {
-            return remoteRepository.getPopularMoviesFromNetwork();
+            return remoteRepository.getPopularMoviesFromNetwork(wrapper.getLocalLanguage());
         } else {
             return localRepository.getPopularMoviesFromDatabase();
         }
