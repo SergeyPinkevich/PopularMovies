@@ -52,8 +52,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         ImageView moviePoster;
         @BindView(R.id.movie_title)
         TextView movieTitle;
-        @BindView(R.id.movie_release_date)
-        TextView movieReleaseDate;
 
         CardView cardView;
 
@@ -66,7 +64,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         public void bind(Movie movie) {
             Picasso.with(cardView.getContext()).load("https://image.tmdb.org/t/p/w500" + movie.getPosterPath()).into(moviePoster);
             movieTitle.setText(movie.getTitle());
-            movieReleaseDate.setText(movie.getReleaseDate());
         }
     }
 }
