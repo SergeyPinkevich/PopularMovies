@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.innopolis.sergeypinkevich.popularmovies">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name="internal.di.BaseApp"
@@ -12,10 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".feature.main.MainActivity">
-
-        </activity>
-        <activity android:name=".feature.splash.SplashActivity"
+        <activity android:name=".feature.main.MainActivity"></activity>
+        <activity
+            android:name=".feature.splash.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,6 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".feature.detail.DetailActivity"></activity>
     </application>
 
 </manifest>

@@ -1,6 +1,5 @@
 package com.innopolis.sergeypinkevich.popularmovies.feature.main;
 
-import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,16 +23,22 @@ import butterknife.ButterKnife;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
+    private MovieAdapterClickListener clickListener;
     private List<Movie> movies;
 
-    public MovieAdapter(List<Movie> movies) {
+    public MovieAdapter(MovieAdapterClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
+
+    public void setData(List<Movie> movies) {
         this.movies = movies;
+        notifyDataSetChanged();
     }
 
     @Override
     public MovieViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         CardView view = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_item, parent, false);
-        return new MovieViewHolder(view);
+        return new MovieViewHolder(view, clickListener);
     }
 
     @Override
@@ -46,7 +51,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         return movies.size();
     }
 
-    class MovieViewHolder extends RecyclerView.ViewHolder {
+    class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.movie_poster)
         ImageView moviePoster;
@@ -55,15 +60,23 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
         CardView cardView;
 
-        public MovieViewHolder(CardView v) {
+        public MovieViewHolder(CardView v, MovieAdapterClickListener listener) {
             super(v);
             cardView = v;
             ButterKnife.bind(this, v);
+
+            clickListener = listener;
+            cardView.setOnClickListener(this);
         }
 
         public void bind(Movie movie) {
             Picasso.with(cardView.getContext()).load("https://image.tmdb.org/t/p/w500" + movie.getPosterPath()).into(moviePoster);
             movieTitle.setText(movie.getTitle());
+        }
+
+        @Override
+        public void onClick(View view) {
+            clickListener.onClick(view, getAdapterPosition());
         }
     }
 }

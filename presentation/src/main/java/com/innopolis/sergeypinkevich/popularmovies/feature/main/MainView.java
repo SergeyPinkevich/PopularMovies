@@ -13,5 +13,7 @@ public interface MainView extends MvpView {
 
     void showMoviesList(List<Movie> movies);
 
+    void showDetailScreen();
+
     void showError();
 }

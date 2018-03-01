@@ -5,11 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.innopolis.sergeypinkevich.popularmovies.R;
+import com.innopolis.sergeypinkevich.popularmovies.feature.detail.DetailActivity;
 import com.innopolis.sergeypinkevich.popularmovies.feature.splash.SplashActivity;
 import com.innopolis.sergeypinkevich.popularmovies.model.Movie;
 import com.squareup.picasso.Picasso;
@@ -50,7 +52,17 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     public void showMoviesList(List<Movie> movies) {
         recyclerViewMovies.setLayoutManager(new GridLayoutManager(this, 2));
-        recyclerViewMovies.setAdapter(new MovieAdapter(movies));
+        MovieAdapter adapter = new MovieAdapter((view, position) -> {
+            presenter.getInformationAboutMovie(movies.get(position).getId());
+        });
+        adapter.setData(movies);
+        recyclerViewMovies.setAdapter(adapter);
+    }
+
+    @Override
+    public void showDetailScreen() {
+        Intent intent = new Intent(this, DetailActivity.class);
+        startActivity(intent);
     }
 
     @Override

@@ -34,8 +34,8 @@ public class SplashModule {
 
     @Singleton
     @Provides
-    TopRatedMoviesUseCase provideTopRatedUseCase() {
-        return new TopRatedMoviesUseCase();
+    TopRatedMoviesUseCase provideTopRatedUseCase(AndroidWrapper wrapper, RemoteRepository remoteRepository, LocalRepository localRepository) {
+        return new TopRatedMoviesUseCase(wrapper, remoteRepository, localRepository);
     }
 
     @Singleton

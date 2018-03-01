@@ -1,10 +1,8 @@
 package com.innopolis.sergeypinkevich.popularmovies.repository;
 
-import com.innopolis.sergeypinkevich.popularmovies.model.Movie;
+import com.innopolis.sergeypinkevich.popularmovies.model.MovieDetails;
 import com.innopolis.sergeypinkevich.popularmovies.model.ServerResponse;
 import com.innopolis.sergeypinkevich.popularmovies.network.LocalRepository;
-
-import java.util.List;
 
 import io.reactivex.Single;
 
@@ -15,6 +13,16 @@ import io.reactivex.Single;
 public class LocalRepositoryImpl implements LocalRepository {
     @Override
     public Single<ServerResponse> getPopularMoviesFromDatabase() {
+        return null;
+    }
+
+    @Override
+    public Single<ServerResponse> getTopRatedMoviesFromDatabase() {
+        return null;
+    }
+
+    @Override
+    public Single<MovieDetails> getMovieDetailsFromDatabase(long id) {
         return null;
     }
 }

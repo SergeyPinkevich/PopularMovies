@@ -1,5 +1,6 @@
 package com.innopolis.sergeypinkevich.popularmovies.usecase;
 
+import com.innopolis.sergeypinkevich.popularmovies.model.MovieDetails;
 import com.innopolis.sergeypinkevich.popularmovies.model.ServerResponse;
 import com.innopolis.sergeypinkevich.popularmovies.network.LocalRepository;
 import com.innopolis.sergeypinkevich.popularmovies.network.RemoteRepository;
@@ -13,14 +14,14 @@ import io.reactivex.Single;
  * @author Sergey Pinkevich
  */
 
-public class TopRatedMoviesUseCase {
+public class MovieDetailsuseCase {
 
     private AndroidWrapper wrapper;
     private RemoteRepository remoteRepository;
     private LocalRepository localRepository;
 
     @Inject
-    public TopRatedMoviesUseCase(AndroidWrapper wrapper,
+    public MovieDetailsuseCase(AndroidWrapper wrapper,
                                 RemoteRepository remoteRepository,
                                 LocalRepository localRepository) {
         this.wrapper = wrapper;
@@ -28,11 +29,11 @@ public class TopRatedMoviesUseCase {
         this.localRepository = localRepository;
     }
 
-    public Single<ServerResponse> getTopRatedMovies() {
+    public Single<MovieDetails> getMovieDetails(long id) {
         if (wrapper.isNetworkAvailable()) {
-            return remoteRepository.getTopRatedMoviesFromNetwork(wrapper.getLocalLanguage());
+            return remoteRepository.getMovieDetailsFromNetwork(id, wrapper.getLocalLanguage());
         } else {
-            return localRepository.getTopRatedMoviesFromDatabase();
+            return localRepository.getMovieDetailsFromDatabase(id);
         }
     }
 }

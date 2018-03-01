@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
+import com.innopolis.sergeypinkevich.popularmovies.model.ServerResponse;
 import com.innopolis.sergeypinkevich.popularmovies.model.UserChoice;
 import com.innopolis.sergeypinkevich.popularmovies.usecase.FilterMoviesUseCase;
 import com.innopolis.sergeypinkevich.popularmovies.usecase.PopularMoviesUseCase;
@@ -15,6 +16,7 @@ import javax.inject.Inject;
 
 import dagger.Lazy;
 import internal.di.BaseApp;
+import io.reactivex.Single;
 
 /**
  * @author Sergey Pinkevich
@@ -42,14 +44,17 @@ public class SplashPresenter extends MvpPresenter<SplashView> {
 
     public void getMovies() {
         UserChoice userChoice = filterMoviesUseCase.getUserLastChoice();
-        if (userChoice == UserChoice.POPULAR) {
-            popularMoviesUseCase.get().getPopularMovies()
-                    .subscribeOn(rxScheduler.getNetwork())
-                    .observeOn(rxScheduler.getMain())
-                    .subscribe(data -> getViewState().startMainScreen(data),
-                            exception -> Log.e("SplashPresenter", exception.getMessage(), exception));
-        } else {
 
+        Single<ServerResponse> moviesList;
+        if (userChoice == UserChoice.POPULAR) {
+            moviesList = popularMoviesUseCase.get().getPopularMovies();
+        } else {
+            moviesList = topRatedMoviesUseCase.get().getTopRatedMovies();
         }
+
+        moviesList.subscribeOn(rxScheduler.getNetwork())
+                .observeOn(rxScheduler.getMain())
+                .subscribe(data -> getViewState().startMainScreen(data),
+                        exception -> Log.e("SplashPresenter", exception.getMessage(), exception));
     }
 }

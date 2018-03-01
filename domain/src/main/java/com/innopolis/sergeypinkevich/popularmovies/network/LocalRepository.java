@@ -1,9 +1,7 @@
 package com.innopolis.sergeypinkevich.popularmovies.network;
 
-import com.innopolis.sergeypinkevich.popularmovies.model.Movie;
+import com.innopolis.sergeypinkevich.popularmovies.model.MovieDetails;
 import com.innopolis.sergeypinkevich.popularmovies.model.ServerResponse;
-
-import java.util.List;
 
 import io.reactivex.Single;
 
@@ -14,4 +12,8 @@ import io.reactivex.Single;
 public interface LocalRepository {
 
     Single<ServerResponse> getPopularMoviesFromDatabase();
+
+    Single<ServerResponse> getTopRatedMoviesFromDatabase();
+
+    Single<MovieDetails> getMovieDetailsFromDatabase(long id);
 }

@@ -1,5 +1,6 @@
 package com.innopolis.sergeypinkevich.popularmovies.repository;
 
+import com.innopolis.sergeypinkevich.popularmovies.model.MovieDetails;
 import com.innopolis.sergeypinkevich.popularmovies.model.ServerResponse;
 import com.innopolis.sergeypinkevich.popularmovies.network.ApiService;
 import com.innopolis.sergeypinkevich.popularmovies.network.RemoteRepository;
@@ -25,5 +26,15 @@ public class RemoteRepositoryImpl implements RemoteRepository {
     @Override
     public Single<ServerResponse> getPopularMoviesFromNetwork(String language) {
         return apiService.getPopularMovies(API_KEY, language);
+    }
+
+    @Override
+    public Single<ServerResponse> getTopRatedMoviesFromNetwork(String language) {
+        return apiService.getTopRatedMovies(API_KEY, language);
+    }
+
+    @Override
+    public Single<MovieDetails> getMovieDetailsFromNetwork(long id, String language) {
+        return apiService.getMovieDetails(id, API_KEY, language);
     }
 }
