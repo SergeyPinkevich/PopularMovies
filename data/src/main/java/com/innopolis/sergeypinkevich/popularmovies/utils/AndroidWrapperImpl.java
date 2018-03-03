@@ -32,8 +32,11 @@ public class AndroidWrapperImpl implements AndroidWrapper {
 
     @Override
     public boolean isNetworkAvailable() {
-        NetworkInfo networkInfo = ((ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
-        return networkInfo.isConnected();
+        ConnectivityManager connectivityManager = ((ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE));
+        if (connectivityManager != null) {
+            return connectivityManager.getActiveNetworkInfo().isConnected();
+        }
+        return false;
     }
 
     @Override
@@ -45,7 +48,7 @@ public class AndroidWrapperImpl implements AndroidWrapper {
     @Override
     public void putFilterTypeToSharedPreferences(String filterType) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        preferences.edit().putString(FILTER_KEY, filterType).commit();
+        preferences.edit().putString(FILTER_KEY, filterType).apply();
     }
 
     @Override

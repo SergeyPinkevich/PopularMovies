@@ -4,4 +4,5 @@
     <string name="filter_popular">По популярности</string>
     <string name="filter_rating">По рейтингу</string>
     <string name="error_message">Что-то пошло не так</string>
+    <string name="image_content_description">Постер к фильму</string>
 </resources>

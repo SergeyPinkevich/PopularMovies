@@ -8,7 +8,7 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:padding="@dimen/movie_detail_padding"
         tools:context="com.innopolis.sergeypinkevich.popularmovies.feature.detail.DetailActivity">
 
@@ -27,6 +27,7 @@
 
         <ImageView
             android:id="@+id/movie_poster"
+            android:contentDescription="@string/image_content_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/movie_vertical_margin"

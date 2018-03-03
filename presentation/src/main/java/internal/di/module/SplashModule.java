@@ -22,8 +22,8 @@ public class SplashModule {
 
     @Singleton
     @Provides
-    SplashPresenter providePresenter(FilterMoviesUseCase useCase, RxScheduler rxScheduler, AndroidWrapper wrapper) {
-        return new SplashPresenter(useCase, rxScheduler, wrapper);
+    SplashPresenter providePresenter(FilterMoviesUseCase useCase, RxScheduler rxScheduler) {
+        return new SplashPresenter(useCase, rxScheduler);
     }
 
     @Singleton

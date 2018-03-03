@@ -23,7 +23,7 @@ public class FilterMoviesUseCase {
     }
 
     public UserChoice getUserLastChoice() {
-        if (wrapper.getFilterTypeFromSharedPreference() == POPULAR_FILTER) {
+        if (wrapper.getFilterTypeFromSharedPreference().equals(POPULAR_FILTER)) {
             return UserChoice.POPULAR;
         } else {
             return UserChoice.TOP_RATED;

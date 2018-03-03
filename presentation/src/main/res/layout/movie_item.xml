@@ -14,6 +14,7 @@
 
         <ImageView
             android:id="@+id/movie_poster"
+            android:contentDescription="@string/image_content_description"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="centerCrop"
@@ -37,6 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/movie_item_text_padding"
+            android:paddingRight="@dimen/movie_item_text_padding"
             android:singleLine="true"
             android:textSize="@dimen/movie_item_text_size"
             android:textColor="@color/white"
@@ -47,6 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/movie_item_text_padding"
+            android:paddingRight="@dimen/movie_item_text_padding"
             android:textSize="@dimen/movie_item_text_size"
             android:textColor="@color/white"
             app:layout_constraintTop_toBottomOf="@id/movie_title"/>

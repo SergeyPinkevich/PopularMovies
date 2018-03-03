@@ -52,8 +52,10 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
 
         ButterKnife.bind(this);
 
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         presenter.attachView(this);
         if (getIntent() != null) {

@@ -24,7 +24,6 @@ import io.reactivex.Single;
 @InjectViewState
 public class SplashPresenter extends MvpPresenter<SplashView> {
 
-    private AndroidWrapper wrapper;
     private FilterMoviesUseCase filterMoviesUseCase;
     private RxScheduler rxScheduler;
 
@@ -34,12 +33,11 @@ public class SplashPresenter extends MvpPresenter<SplashView> {
     Lazy<TopRatedMoviesUseCase> topRatedMoviesUseCase;
 
     @Inject
-    public SplashPresenter(FilterMoviesUseCase filterMoviesUseCase, RxScheduler rxScheduler, AndroidWrapper wrapper) {
+    public SplashPresenter(FilterMoviesUseCase filterMoviesUseCase, RxScheduler rxScheduler) {
         BaseApp.component.inject(this);
 
         this.filterMoviesUseCase = filterMoviesUseCase;
         this.rxScheduler = rxScheduler;
-        this.wrapper = wrapper;
     }
 
     public void getMovies() {

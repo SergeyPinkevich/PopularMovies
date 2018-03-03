@@ -5,10 +5,10 @@
         android:id="@+id/action_filter_popular"
         android:orderInCategory="1"
         app:showAsAction="never"
-        android:title="By popular"/>
+        android:title="@string/filter_popular"/>
     <item
         android:id="@+id/action_filter_top_rated"
         android:orderInCategory="2"
         app:showAsAction="never"
-        android:title="By rating"/>
+        android:title="@string/filter_rating"/>
 </menu>
