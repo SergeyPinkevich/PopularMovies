@@ -47,7 +47,7 @@ public class DetailPresenter extends MvpPresenter<DetailView> {
     }
 
     public void showMovieDetails(MovieDetails movieDetails) {
-        getViewState().showTitle(movieDetails.getTitle());
+        getViewState().showTitle(movieDetails.getOriginalTitle());
         getViewState().showPoster(movieDetails.getPosterPath());
         getViewState().showPlot(movieDetails.getOverview());
         getViewState().showRating(movieDetails.getVoteAverage());
