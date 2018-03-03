@@ -10,6 +10,8 @@ import com.innopolis.sergeypinkevich.popularmovies.utils.RxScheduler;
 
 import javax.inject.Inject;
 
+import static com.innopolis.sergeypinkevich.popularmovies.feature.detail.DetailActivity.WRONG_ID;
+
 /**
  * @author Sergey Pinkevich
  */
@@ -27,9 +29,9 @@ public class DetailPresenter extends MvpPresenter<DetailView> {
 
     public void getMovieDetailsById(long id) {
         getViewState().showProgress();
-        if (id == -1) {
+        if (id == WRONG_ID) {
             getViewState().hideProgress();
-            getViewState().showError();
+            getViewState().showErrorMessage();
             getViewState().finishView();
         }
         useCase.getMovieDetails(id)
@@ -40,7 +42,7 @@ public class DetailPresenter extends MvpPresenter<DetailView> {
                     showMovieDetails(data);
                 }, exception -> {
                     getViewState().hideProgress();
-                    getViewState().showError();
+                    getViewState().showErrorMessage();
                 });
     }
 

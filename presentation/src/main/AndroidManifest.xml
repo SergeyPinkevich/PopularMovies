@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".feature.main.MainActivity"></activity>
+        <activity android:name=".feature.main.MainActivity"/>
         <activity
             android:name=".feature.splash.SplashActivity"
             android:theme="@style/SplashTheme">
@@ -22,12 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".feature.detail.DetailActivity"
-            android:parentActivityName=".feature.main.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".feature.main.MainActivity" />
-        </activity>
+        <activity android:name=".feature.detail.DetailActivity"/>
     </application>
 
 </manifest>

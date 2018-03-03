@@ -1,8 +1,8 @@
 package com.innopolis.sergeypinkevich.popularmovies.feature.detail;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -21,9 +21,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import es.dmoral.toasty.Toasty;
 import internal.di.BaseApp;
-import internal.di.module.NetworkModule;
 
 public class DetailActivity extends AppCompatActivity implements DetailView {
+
+    public static final long WRONG_ID = -1;
 
     @BindView(R.id.movie_title)
     TextView movieTitle;
@@ -51,12 +52,12 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
 
         ButterKnife.bind(this);
 
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         presenter.attachView(this);
-        Intent intent = getIntent();
-        if (intent != null) {
-            presenter.getMovieDetailsById(intent.getLongExtra(MainActivity.MOVIE_DETAIL_EXTRA, -1));
+        if (getIntent() != null) {
+            presenter.getMovieDetailsById(getIntent().getLongExtra(MainActivity.MOVIE_DETAIL_EXTRA, WRONG_ID));
         }
     }
 
@@ -86,8 +87,8 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     }
 
     @Override
-    public void showError() {
-        Toasty.error(this, getString(R.string.error_message), Toast.LENGTH_SHORT);
+    public void showErrorMessage() {
+        Toasty.error(this, getString(R.string.error_message), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -101,7 +102,15 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void finishView() {
-        finish();
+        onBackPressed();
     }
 }

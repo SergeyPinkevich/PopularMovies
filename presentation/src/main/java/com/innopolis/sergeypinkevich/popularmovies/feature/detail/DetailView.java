@@ -22,7 +22,7 @@ public interface DetailView extends MvpView {
 
     void showReleaseDate(String date);
 
-    void showError();
+    void showErrorMessage();
 
     void finishView();
 }

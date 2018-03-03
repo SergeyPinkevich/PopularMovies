@@ -52,9 +52,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
         ButterKnife.bind(this);
 
         presenter.attachView(this);
-        Intent intent = getIntent();
-        if (intent != null && intent.getParcelableExtra(SplashActivity.MOVIES_LIST) != null) {
-            presenter.showDataOnMainScreen(intent.getParcelableExtra(SplashActivity.MOVIES_LIST));
+        if (getIntent() != null && getIntent().getParcelableExtra(SplashActivity.MOVIES_LIST) != null) {
+            presenter.showDataOnMainScreen(getIntent().getParcelableExtra(SplashActivity.MOVIES_LIST));
         }
     }
 
@@ -74,8 +73,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
-    public void showError() {
-        Toasty.error(this, getString(R.string.error_message), Toast.LENGTH_SHORT);
+    public void showErrorMessage() {
+        Toasty.error(this, getString(R.string.error_message), Toast.LENGTH_SHORT).show();
     }
 
     @Override
