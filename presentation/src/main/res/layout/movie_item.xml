@@ -26,18 +26,18 @@
         <View
             android:id="@+id/substrate"
             android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:background="#7F000000"
+            android:layout_height="@dimen/movie_item_substrate_height"
+            android:background="@color/dark_gray"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/movie_poster" />
 
         <TextView
             android:id="@+id/movie_title"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:maxLines="1"
+            android:paddingLeft="@dimen/movie_item_text_padding"
+            android:singleLine="true"
             android:textSize="@dimen/movie_item_text_size"
             android:textColor="@color/white"
             app:layout_constraintTop_toTopOf="@id/substrate"/>
@@ -46,6 +46,7 @@
             android:id="@+id/movie_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/movie_item_text_padding"
             android:textSize="@dimen/movie_item_text_size"
             android:textColor="@color/white"
             app:layout_constraintTop_toBottomOf="@id/movie_title"/>

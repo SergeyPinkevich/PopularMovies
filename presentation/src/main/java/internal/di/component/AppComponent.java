@@ -1,5 +1,6 @@
 package internal.di.component;
 
+import com.innopolis.sergeypinkevich.popularmovies.feature.detail.DetailActivity;
 import com.innopolis.sergeypinkevich.popularmovies.feature.main.MainActivity;
 import com.innopolis.sergeypinkevich.popularmovies.feature.main.MainPresenter;
 import com.innopolis.sergeypinkevich.popularmovies.feature.splash.SplashActivity;
@@ -27,4 +28,6 @@ public interface AppComponent {
     void inject(SplashPresenter presenter);
 
     void inject(MainPresenter presenter);
+
+    void inject(DetailActivity activity);
 }

@@ -2,8 +2,6 @@ package internal.di;
 
 import android.app.Application;
 
-import com.arellomobile.mvp.RegisterMoxyReflectorPackages;
-
 import internal.di.component.AppComponent;
 import internal.di.component.DaggerAppComponent;
 import internal.di.module.AppModule;

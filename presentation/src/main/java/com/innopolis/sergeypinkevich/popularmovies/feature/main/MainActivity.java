@@ -31,6 +31,8 @@ import internal.di.BaseApp;
 
 public class MainActivity extends AppCompatActivity implements MainView {
 
+    public static final String MOVIE_DETAIL_EXTRA = "movieDetailExtra";
+
     @BindView(R.id.movies_list)
     RecyclerView recyclerViewMovies;
     @BindView(R.id.progress_bar)
@@ -65,8 +67,9 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
-    public void showDetailScreen() {
+    public void showMovieDetailScreen(long movieId) {
         Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra(MOVIE_DETAIL_EXTRA, movieId);
         startActivity(intent);
     }
 

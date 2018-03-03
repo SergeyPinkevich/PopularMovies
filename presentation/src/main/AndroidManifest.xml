@@ -22,7 +22,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".feature.detail.DetailActivity"></activity>
+        <activity android:name=".feature.detail.DetailActivity"
+            android:parentActivityName=".feature.main.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".feature.main.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -14,16 +14,16 @@ import io.reactivex.Single;
  * @author Sergey Pinkevich
  */
 
-public class MovieDetailsuseCase {
+public class MovieDetailsUseCase {
 
     private AndroidWrapper wrapper;
     private RemoteRepository remoteRepository;
     private LocalRepository localRepository;
 
     @Inject
-    public MovieDetailsuseCase(AndroidWrapper wrapper,
-                                RemoteRepository remoteRepository,
-                                LocalRepository localRepository) {
+    public MovieDetailsUseCase(AndroidWrapper wrapper,
+                               RemoteRepository remoteRepository,
+                               LocalRepository localRepository) {
         this.wrapper = wrapper;
         this.remoteRepository = remoteRepository;
         this.localRepository = localRepository;

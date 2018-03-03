@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
+import com.innopolis.sergeypinkevich.popularmovies.model.Movie;
 import com.innopolis.sergeypinkevich.popularmovies.model.ServerResponse;
 import com.innopolis.sergeypinkevich.popularmovies.usecase.FilterMoviesUseCase;
 import com.innopolis.sergeypinkevich.popularmovies.usecase.PopularMoviesUseCase;
@@ -46,8 +47,8 @@ public class MainPresenter extends MvpPresenter<MainView> {
         getViewState().showMoviesList(response.getResults());
     }
 
-    public void getInformationAboutMovie(long id) {
-
+    public void getInformationAboutMovie(long movieId) {
+        getViewState().showMovieDetailScreen(movieId);
     }
 
     public void filterMoviesByPopularity() {

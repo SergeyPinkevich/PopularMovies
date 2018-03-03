@@ -36,6 +36,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         notifyDataSetChanged();
     }
 
+    public Movie getMovieById(long id) {
+        for (Movie movie : movies) {
+            if (movie.getId() == id) {
+                return movie;
+            }
+        }
+        return null;
+    }
+
     @Override
     public MovieViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         CardView view = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_item, parent, false);
