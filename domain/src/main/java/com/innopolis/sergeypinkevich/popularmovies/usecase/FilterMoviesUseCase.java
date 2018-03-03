@@ -12,7 +12,7 @@ import javax.inject.Inject;
 public class FilterMoviesUseCase {
 
     public static final String DEFAULT_FILTER = "popular";
-    public static final String POPULAR_FILTER = DEFAULT_FILTER;
+    public static final String POPULAR_FILTER = "popular";
     public static final String TOP_RATED_FILTER = "top_rated";
 
     AndroidWrapper wrapper;

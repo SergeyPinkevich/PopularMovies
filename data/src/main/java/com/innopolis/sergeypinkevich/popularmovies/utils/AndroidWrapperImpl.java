@@ -43,6 +43,12 @@ public class AndroidWrapperImpl implements AndroidWrapper {
     }
 
     @Override
+    public void putFilterTypeToSharedPreferences(String filterType) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        preferences.edit().putString(FILTER_KEY, filterType).commit();
+    }
+
+    @Override
     public String getLocalLanguage() {
         Locale locale;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

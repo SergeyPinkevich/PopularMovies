@@ -1,7 +1,9 @@
 package internal.di.module;
 
 import com.innopolis.sergeypinkevich.popularmovies.feature.main.MainPresenter;
+import com.innopolis.sergeypinkevich.popularmovies.usecase.FilterMoviesUseCase;
 import com.innopolis.sergeypinkevich.popularmovies.usecase.PopularMoviesUseCase;
+import com.innopolis.sergeypinkevich.popularmovies.utils.AndroidWrapper;
 import com.innopolis.sergeypinkevich.popularmovies.utils.RxScheduler;
 
 import javax.inject.Singleton;
@@ -17,7 +19,7 @@ public class MainModule {
 
     @Singleton
     @Provides
-    MainPresenter providePresenter(PopularMoviesUseCase useCase, RxScheduler rxScheduler) {
-        return new MainPresenter(useCase, rxScheduler);
+    MainPresenter providePresenter(RxScheduler rxScheduler, AndroidWrapper wrapper) {
+        return new MainPresenter(rxScheduler, wrapper);
     }
 }

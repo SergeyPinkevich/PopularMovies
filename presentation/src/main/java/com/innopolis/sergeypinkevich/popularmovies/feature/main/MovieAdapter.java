@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.innopolis.sergeypinkevich.popularmovies.R;
 import com.innopolis.sergeypinkevich.popularmovies.model.Movie;
+import com.innopolis.sergeypinkevich.popularmovies.repository.RemoteRepositoryImpl;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -57,6 +58,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         ImageView moviePoster;
         @BindView(R.id.movie_title)
         TextView movieTitle;
+        @BindView(R.id.movie_rating)
+        TextView movieRating;
 
         CardView cardView;
 
@@ -70,8 +73,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         }
 
         public void bind(Movie movie) {
-            Picasso.with(cardView.getContext()).load("https://image.tmdb.org/t/p/w500" + movie.getPosterPath()).into(moviePoster);
+            Picasso.with(cardView.getContext()).load(RemoteRepositoryImpl.IMAGE_PATH + movie.getPosterPath()).into(moviePoster);
             movieTitle.setText(movie.getTitle());
+            movieRating.setText(String.valueOf(movie.getVoteAverage()));
         }
 
         @Override

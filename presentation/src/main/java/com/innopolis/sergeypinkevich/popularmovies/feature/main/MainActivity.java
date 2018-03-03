@@ -5,9 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.innopolis.sergeypinkevich.popularmovies.R;
@@ -22,12 +26,15 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import es.dmoral.toasty.Toasty;
 import internal.di.BaseApp;
 
 public class MainActivity extends AppCompatActivity implements MainView {
 
     @BindView(R.id.movies_list)
     RecyclerView recyclerViewMovies;
+    @BindView(R.id.progress_bar)
+    ProgressBar progressBar;
 
     @Inject
     @InjectPresenter
@@ -52,9 +59,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     public void showMoviesList(List<Movie> movies) {
         recyclerViewMovies.setLayoutManager(new GridLayoutManager(this, 2));
-        MovieAdapter adapter = new MovieAdapter((view, position) -> {
-            presenter.getInformationAboutMovie(movies.get(position).getId());
-        });
+        MovieAdapter adapter = new MovieAdapter((view, position) -> presenter.getInformationAboutMovie(movies.get(position).getId()));
         adapter.setData(movies);
         recyclerViewMovies.setAdapter(adapter);
     }
@@ -67,6 +72,35 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     @Override
     public void showError() {
+        Toasty.error(this, getString(R.string.error_message), Toast.LENGTH_SHORT);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_filter_popular:
+                presenter.filterMoviesByPopularity();
+                break;
+            case R.id.action_filter_top_rated:
+                presenter.filterMoviesByRating();
+                break;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public void showProgress() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        progressBar.setVisibility(View.GONE);
     }
 }

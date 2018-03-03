@@ -11,6 +11,10 @@ import java.util.List;
 
 public interface MainView extends MvpView {
 
+    void showProgress();
+
+    void hideProgress();
+
     void showMoviesList(List<Movie> movies);
 
     void showDetailScreen();

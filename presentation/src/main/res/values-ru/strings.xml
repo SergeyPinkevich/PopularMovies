@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Popular Movies</string>
+    <string name="filter_popular">По популярности</string>
+    <string name="filter_rating">По рейтингу</string>
+    <string name="error_message">Что-то пошло не так</string>
+</resources>
