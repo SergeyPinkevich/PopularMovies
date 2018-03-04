@@ -34,7 +34,9 @@ public class AndroidWrapperImpl implements AndroidWrapper {
     public boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager = ((ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE));
         if (connectivityManager != null) {
-            return connectivityManager.getActiveNetworkInfo().isConnected();
+            if (connectivityManager.getActiveNetworkInfo() != null) {
+                return connectivityManager.getActiveNetworkInfo().isConnected();
+            } else return false;
         }
         return false;
     }

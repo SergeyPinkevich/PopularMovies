@@ -43,16 +43,24 @@ public class SplashPresenter extends MvpPresenter<SplashView> {
     public void getMovies() {
         UserChoice userChoice = filterMoviesUseCase.getUserLastChoice();
 
-        Single<ServerResponse> moviesList;
         if (userChoice == UserChoice.POPULAR) {
-            moviesList = popularMoviesUseCase.get().getPopularMovies();
+            popularMoviesUseCase.get().getPopularMovies()
+                    .subscribeOn(rxScheduler.getNetwork())
+                    .observeOn(rxScheduler.getMain())
+                    .subscribe(data -> getViewState().startMainScreen(data),
+                            exception -> {
+                                Log.e("SplashPresenter", exception.getMessage(), exception);
+                                getViewState().showError(exception.getMessage());
+                            });
         } else {
-            moviesList = topRatedMoviesUseCase.get().getTopRatedMovies();
+            topRatedMoviesUseCase.get().getTopRatedMovies()
+                    .subscribeOn(rxScheduler.getNetwork())
+                    .observeOn(rxScheduler.getMain())
+                    .subscribe(data -> getViewState().startMainScreen(data),
+                            exception -> {
+                                Log.e("SplashPresenter", exception.getMessage(), exception);
+                                getViewState().showError(exception.getMessage());
+                            });
         }
-
-        moviesList.subscribeOn(rxScheduler.getNetwork())
-                .observeOn(rxScheduler.getMain())
-                .subscribe(data -> getViewState().startMainScreen(data),
-                        exception -> Log.e("SplashPresenter", exception.getMessage(), exception));
     }
 }

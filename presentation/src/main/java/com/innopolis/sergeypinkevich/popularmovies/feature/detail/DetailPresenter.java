@@ -43,6 +43,7 @@ public class DetailPresenter extends MvpPresenter<DetailView> {
                 }, exception -> {
                     getViewState().hideProgress();
                     getViewState().showErrorMessage();
+                    getViewState().finishView();
                 });
     }
 

@@ -3,6 +3,7 @@ package com.innopolis.sergeypinkevich.popularmovies.feature.splash;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.innopolis.sergeypinkevich.popularmovies.R;
@@ -11,6 +12,7 @@ import com.innopolis.sergeypinkevich.popularmovies.model.ServerResponse;
 
 import javax.inject.Inject;
 
+import es.dmoral.toasty.Toasty;
 import internal.di.BaseApp;
 
 public class SplashActivity extends AppCompatActivity implements SplashView {
@@ -38,5 +40,10 @@ public class SplashActivity extends AppCompatActivity implements SplashView {
         intent.putExtra(MOVIES_LIST, response);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void showError(String errorText) {
+        Toasty.error(this, errorText, Toast.LENGTH_SHORT).show();
     }
 }

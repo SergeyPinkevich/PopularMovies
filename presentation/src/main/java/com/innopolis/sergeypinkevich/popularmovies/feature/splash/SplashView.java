@@ -13,4 +13,6 @@ import java.util.List;
 public interface SplashView extends MvpView {
 
     void startMainScreen(ServerResponse response);
+
+    void showError(String errorText);
 }
