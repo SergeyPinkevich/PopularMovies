@@ -1,5 +1,6 @@
 package com.innopolis.sergeypinkevich.popularmovies.repository;
 
+import com.innopolis.data.BuildConfig;
 import com.innopolis.sergeypinkevich.popularmovies.model.MovieDetails;
 import com.innopolis.sergeypinkevich.popularmovies.model.ServerResponse;
 import com.innopolis.sergeypinkevich.popularmovies.network.ApiService;
@@ -14,7 +15,7 @@ import io.reactivex.Single;
 public class RemoteRepositoryImpl implements RemoteRepository {
 
     public static final String API_KEY_PARAMETER = "api_key";
-    public static final String API_KEY = "c42b989ebf5b0821f57833782ecfe1eb";
+    private static final String API_KEY = BuildConfig.API_KEY;
     public static final String LANGUAGE = "language";
     public static final String IMAGE_PATH = "https://image.tmdb.org/t/p/w500";
 

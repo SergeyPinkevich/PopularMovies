@@ -2,6 +2,6 @@
     <string name="app_name">Popular Movies</string>
     <string name="filter_popular">By popular</string>
     <string name="filter_rating">By rating</string>
-    <string name="error_message">Something went wrong</string>
+    <string name="error_message">Error connecting to server</string>
     <string name="image_content_description">Poster of the movie</string>
 </resources>

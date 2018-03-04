@@ -30,18 +30,13 @@ public class DetailPresenter extends MvpPresenter<DetailView> {
     public void getMovieDetailsById(long id) {
         getViewState().showProgress();
         if (id == WRONG_ID) {
-            getViewState().hideProgress();
-            getViewState().showErrorMessage();
-            getViewState().finishView();
+            handleWrongId();
         }
         useCase.getMovieDetails(id)
                 .subscribeOn(rxScheduler.getNetwork())
                 .observeOn(rxScheduler.getMain())
-                .subscribe(data -> {
-                    getViewState().hideProgress();
-                    showMovieDetails(data);
-                }, exception -> {
-                    getViewState().hideProgress();
+                .doAfterTerminate(() -> getViewState().hideProgress())
+                .subscribe(data -> showMovieDetails(data), exception -> {
                     getViewState().showErrorMessage();
                     getViewState().finishView();
                 });
@@ -53,5 +48,11 @@ public class DetailPresenter extends MvpPresenter<DetailView> {
         getViewState().showPlot(movieDetails.getOverview());
         getViewState().showRating(movieDetails.getVoteAverage());
         getViewState().showReleaseDate(DateToStringConverter.getStringFromDate(movieDetails.getReleaseDate()));
+    }
+
+    private void handleWrongId() {
+        getViewState().hideProgress();
+        getViewState().showErrorMessage();
+        getViewState().finishView();
     }
 }
