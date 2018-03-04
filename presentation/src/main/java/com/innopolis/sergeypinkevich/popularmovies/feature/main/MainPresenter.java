@@ -61,7 +61,10 @@ public class MainPresenter extends MvpPresenter<MainView> {
                             showDataOnMainScreen(data);
                             wrapper.putFilterTypeToSharedPreferences(POPULAR_FILTER);
                         },
-                        exception -> Log.e("MainPresenter", exception.getMessage(), exception));
+                        exception -> {
+                            Log.e("MainPresenter", exception.getMessage(), exception);
+                            getViewState().showErrorMessage();
+                        });
     }
 
     public void filterMoviesByRating() {
@@ -74,6 +77,9 @@ public class MainPresenter extends MvpPresenter<MainView> {
                             showDataOnMainScreen(data);
                             wrapper.putFilterTypeToSharedPreferences(TOP_RATED_FILTER);
                         },
-                        exception -> Log.e("MainPresenter", exception.getMessage(), exception));
+                        exception -> {
+                            Log.e("MainPresenter", exception.getMessage(), exception);
+                            getViewState().showErrorMessage();
+                        });
     }
 }
