@@ -2,7 +2,7 @@ package com.innopolis.sergeypinkevich.popularmovies.usecase;
 
 import android.accounts.NetworkErrorException;
 
-import com.innopolis.sergeypinkevich.popularmovies.model.ServerResponse;
+import com.innopolis.sergeypinkevich.popularmovies.model.MovieServerResponse;
 import com.innopolis.sergeypinkevich.popularmovies.network.LocalRepository;
 import com.innopolis.sergeypinkevich.popularmovies.network.RemoteRepository;
 import com.innopolis.sergeypinkevich.popularmovies.utils.AndroidWrapper;
@@ -30,7 +30,7 @@ public class PopularMoviesUseCase {
         this.localRepository = localRepository;
     }
 
-    public Single<ServerResponse> getPopularMovies() {
+    public Single<MovieServerResponse> getPopularMovies() {
         if (wrapper.isNetworkAvailable()) {
             return remoteRepository.getPopularMoviesFromNetwork(wrapper.getLocalLanguage());
         } else {

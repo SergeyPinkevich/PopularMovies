@@ -1,14 +1,14 @@
 package com.innopolis.sergeypinkevich.popularmovies.feature.splash;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.innopolis.sergeypinkevich.popularmovies.R;
 import com.innopolis.sergeypinkevich.popularmovies.feature.main.MainActivity;
-import com.innopolis.sergeypinkevich.popularmovies.model.ServerResponse;
+import com.innopolis.sergeypinkevich.popularmovies.model.MovieServerResponse;
 
 import javax.inject.Inject;
 
@@ -35,7 +35,7 @@ public class SplashActivity extends AppCompatActivity implements SplashView {
     }
 
     @Override
-    public void startMainScreen(ServerResponse response) {
+    public void startMainScreen(MovieServerResponse response) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra(MOVIES_LIST, response);
         startActivity(intent);

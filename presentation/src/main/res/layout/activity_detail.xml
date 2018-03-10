@@ -50,6 +50,13 @@
             android:textSize="@dimen/movie_detail_rating_size"
             app:layout_constraintTop_toBottomOf="@id/movie_plot" />
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/trailers_list"
+            app:layout_constraintTop_toBottomOf="@id/movie_rating"
+            android:layout_marginTop="@dimen/movie_vertical_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
         <ProgressBar
             android:id="@+id/progress_bar"
             android:layout_width="34dp"

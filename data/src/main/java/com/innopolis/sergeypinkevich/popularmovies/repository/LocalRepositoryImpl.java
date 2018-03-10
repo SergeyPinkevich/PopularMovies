@@ -1,7 +1,7 @@
 package com.innopolis.sergeypinkevich.popularmovies.repository;
 
 import com.innopolis.sergeypinkevich.popularmovies.model.MovieDetails;
-import com.innopolis.sergeypinkevich.popularmovies.model.ServerResponse;
+import com.innopolis.sergeypinkevich.popularmovies.model.MovieServerResponse;
 import com.innopolis.sergeypinkevich.popularmovies.network.LocalRepository;
 
 import io.reactivex.Single;
@@ -12,12 +12,12 @@ import io.reactivex.Single;
 
 public class LocalRepositoryImpl implements LocalRepository {
     @Override
-    public Single<ServerResponse> getPopularMoviesFromDatabase() {
+    public Single<MovieServerResponse> getPopularMoviesFromDatabase() {
         return null;
     }
 
     @Override
-    public Single<ServerResponse> getTopRatedMoviesFromDatabase() {
+    public Single<MovieServerResponse> getTopRatedMoviesFromDatabase() {
         return null;
     }
 

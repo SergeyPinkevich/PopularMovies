@@ -1,16 +1,17 @@
 package com.innopolis.sergeypinkevich.popularmovies.feature.detail;
 
+import android.content.Intent;
+import android.net.Uri;
+
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.innopolis.sergeypinkevich.popularmovies.converter.DateToStringConverter;
-import com.innopolis.sergeypinkevich.popularmovies.model.Movie;
 import com.innopolis.sergeypinkevich.popularmovies.model.MovieDetails;
 import com.innopolis.sergeypinkevich.popularmovies.usecase.MovieDetailsUseCase;
+import com.innopolis.sergeypinkevich.popularmovies.usecase.TrailersUseCase;
 import com.innopolis.sergeypinkevich.popularmovies.utils.RxScheduler;
 
 import javax.inject.Inject;
-
-import static com.innopolis.sergeypinkevich.popularmovies.feature.detail.DetailActivity.WRONG_ID;
 
 /**
  * @author Sergey Pinkevich
@@ -18,27 +19,37 @@ import static com.innopolis.sergeypinkevich.popularmovies.feature.detail.DetailA
 @InjectViewState
 public class DetailPresenter extends MvpPresenter<DetailView> {
 
-    private MovieDetailsUseCase useCase;
+    public static final String YOUTUBE_URL = "https://youtube.com/watch?v=";
+
+    private TrailersUseCase trailersUseCase;
+    private MovieDetailsUseCase movieDetailsUseCase;
     private RxScheduler rxScheduler;
 
     @Inject
-    public DetailPresenter(MovieDetailsUseCase useCase, RxScheduler rxScheduler) {
-        this.useCase = useCase;
+    public DetailPresenter(MovieDetailsUseCase movieDetailsUseCase, TrailersUseCase trailersUseCase, RxScheduler rxScheduler) {
+        this.movieDetailsUseCase = movieDetailsUseCase;
+        this.trailersUseCase = trailersUseCase;
         this.rxScheduler = rxScheduler;
     }
 
     public void getMovieDetailsById(long id) {
         getViewState().showProgress();
-        if (id == WRONG_ID) {
-            handleWrongId();
-        }
-        useCase.getMovieDetails(id)
+        movieDetailsUseCase.getMovieDetails(id)
                 .subscribeOn(rxScheduler.getNetwork())
                 .observeOn(rxScheduler.getMain())
                 .doAfterTerminate(() -> getViewState().hideProgress())
                 .subscribe(data -> showMovieDetails(data), exception -> {
                     getViewState().showErrorMessage();
                     getViewState().finishView();
+                });
+    }
+
+    public void getMovieTrailersById(long id) {
+        trailersUseCase.getMovieTrailers(id)
+                .subscribeOn(rxScheduler.getNetwork())
+                .observeOn(rxScheduler.getMain())
+                .subscribe(data -> getViewState().showTrailers(data.getTrailerList()), exception -> {
+                    getViewState().showErrorMessage();
                 });
     }
 
@@ -50,9 +61,10 @@ public class DetailPresenter extends MvpPresenter<DetailView> {
         getViewState().showReleaseDate(DateToStringConverter.getStringFromDate(movieDetails.getReleaseDate()));
     }
 
-    private void handleWrongId() {
-        getViewState().hideProgress();
-        getViewState().showErrorMessage();
-        getViewState().finishView();
+    public void openTrailer(String trailerPath) {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(YOUTUBE_URL + trailerPath));
+        getViewState().openTrailer(intent);
     }
 }

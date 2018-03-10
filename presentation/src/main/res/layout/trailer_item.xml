@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/trailer_height"
+    android:padding="@dimen/trailer_padding">
+
+    <ImageView
+        android:id="@+id/youtube_icon"
+        android:src="@drawable/youtube"
+        android:layout_width="@dimen/trailer_icon_size"
+        android:layout_height="@dimen/trailer_icon_size"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/trailer_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Trailer 1"
+        android:textSize="@dimen/trailer_text_size"
+        android:layout_marginLeft="@dimen/trailer_text_margin"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/youtube_icon"/>
+
+</android.support.constraint.ConstraintLayout>

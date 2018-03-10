@@ -8,4 +8,9 @@
     <dimen name="movie_vertical_margin">15dp</dimen>
     <dimen name="movie_detail_title">24sp</dimen>
     <dimen name="movie_detail_rating_size">24sp</dimen>
+    <dimen name="trailer_height">50dp</dimen>
+    <dimen name="trailer_padding">10dp</dimen>
+    <dimen name="trailer_icon_size">40dp</dimen>
+    <dimen name="trailer_text_size">18sp</dimen>
+    <dimen name="trailer_text_margin">30dp</dimen>
 </resources>

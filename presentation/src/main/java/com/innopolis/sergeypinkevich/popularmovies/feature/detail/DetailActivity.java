@@ -1,7 +1,10 @@
 package com.innopolis.sergeypinkevich.popularmovies.feature.detail;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,8 +15,11 @@ import android.widget.Toast;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.innopolis.sergeypinkevich.popularmovies.R;
 import com.innopolis.sergeypinkevich.popularmovies.feature.main.MainActivity;
+import com.innopolis.sergeypinkevich.popularmovies.model.Trailer;
 import com.innopolis.sergeypinkevich.popularmovies.repository.RemoteRepositoryImpl;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -38,6 +44,8 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     TextView movieReleaseDate;
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
+    @BindView(R.id.trailers_list)
+    RecyclerView recyclerViewTrailers;
 
     @Inject
     @InjectPresenter
@@ -60,6 +68,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
         presenter.attachView(this);
         if (getIntent() != null) {
             presenter.getMovieDetailsById(getIntent().getLongExtra(MainActivity.MOVIE_DETAIL_EXTRA, WRONG_ID));
+            presenter.getMovieTrailersById(getIntent().getLongExtra(MainActivity.MOVIE_DETAIL_EXTRA, WRONG_ID));
         }
     }
 
@@ -86,6 +95,21 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     @Override
     public void showReleaseDate(String date) {
         movieReleaseDate.setText(date);
+    }
+
+    @Override
+    public void showTrailers(List<Trailer> trailerList) {
+        recyclerViewTrailers.setLayoutManager(new LinearLayoutManager(this));
+        TrailerAdapter adapter = new TrailerAdapter((listener, position) -> presenter.openTrailer(trailerList.get(position).getKey()));
+        adapter.updateData(trailerList);
+        recyclerViewTrailers.setAdapter(adapter);
+    }
+
+    @Override
+    public void openTrailer(Intent intent) {
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 
     @Override

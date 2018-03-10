@@ -13,7 +13,7 @@ import java.util.List;
  * @author Sergey Pinkevich
  */
 
-public class ServerResponse implements Parcelable {
+public class MovieServerResponse implements Parcelable {
 
     @SerializedName("page")
     @Expose
@@ -73,10 +73,10 @@ public class ServerResponse implements Parcelable {
         dest.writeList(this.results);
     }
 
-    public ServerResponse() {
+    public MovieServerResponse() {
     }
 
-    protected ServerResponse(Parcel in) {
+    protected MovieServerResponse(Parcel in) {
         this.page = in.readInt();
         this.totalResults = in.readInt();
         this.totalPages = in.readInt();
@@ -84,15 +84,15 @@ public class ServerResponse implements Parcelable {
         in.readList(this.results, Movie.class.getClassLoader());
     }
 
-    public static final Creator<ServerResponse> CREATOR = new Creator<ServerResponse>() {
+    public static final Creator<MovieServerResponse> CREATOR = new Creator<MovieServerResponse>() {
         @Override
-        public ServerResponse createFromParcel(Parcel source) {
-            return new ServerResponse(source);
+        public MovieServerResponse createFromParcel(Parcel source) {
+            return new MovieServerResponse(source);
         }
 
         @Override
-        public ServerResponse[] newArray(int size) {
-            return new ServerResponse[size];
+        public MovieServerResponse[] newArray(int size) {
+            return new MovieServerResponse[size];
         }
     };
 }

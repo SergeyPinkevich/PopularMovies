@@ -4,19 +4,16 @@ import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
-import com.innopolis.sergeypinkevich.popularmovies.model.ServerResponse;
 import com.innopolis.sergeypinkevich.popularmovies.model.UserChoice;
 import com.innopolis.sergeypinkevich.popularmovies.usecase.FilterMoviesUseCase;
 import com.innopolis.sergeypinkevich.popularmovies.usecase.PopularMoviesUseCase;
 import com.innopolis.sergeypinkevich.popularmovies.usecase.TopRatedMoviesUseCase;
-import com.innopolis.sergeypinkevich.popularmovies.utils.AndroidWrapper;
 import com.innopolis.sergeypinkevich.popularmovies.utils.RxScheduler;
 
 import javax.inject.Inject;
 
 import dagger.Lazy;
 import internal.di.BaseApp;
-import io.reactivex.Single;
 
 /**
  * @author Sergey Pinkevich

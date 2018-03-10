@@ -4,9 +4,7 @@ import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
-import com.innopolis.sergeypinkevich.popularmovies.model.Movie;
-import com.innopolis.sergeypinkevich.popularmovies.model.ServerResponse;
-import com.innopolis.sergeypinkevich.popularmovies.usecase.FilterMoviesUseCase;
+import com.innopolis.sergeypinkevich.popularmovies.model.MovieServerResponse;
 import com.innopolis.sergeypinkevich.popularmovies.usecase.PopularMoviesUseCase;
 import com.innopolis.sergeypinkevich.popularmovies.usecase.TopRatedMoviesUseCase;
 import com.innopolis.sergeypinkevich.popularmovies.utils.AndroidWrapper;
@@ -19,7 +17,6 @@ import internal.di.BaseApp;
 
 import static com.innopolis.sergeypinkevich.popularmovies.usecase.FilterMoviesUseCase.POPULAR_FILTER;
 import static com.innopolis.sergeypinkevich.popularmovies.usecase.FilterMoviesUseCase.TOP_RATED_FILTER;
-import static com.innopolis.sergeypinkevich.popularmovies.utils.AndroidWrapperImpl.FILTER_KEY;
 
 /**
  * @author Sergey Pinkevich
@@ -43,7 +40,7 @@ public class MainPresenter extends MvpPresenter<MainView> {
         this.rxScheduler = rxScheduler;
     }
 
-    public void showDataOnMainScreen(ServerResponse response) {
+    public void showDataOnMainScreen(MovieServerResponse response) {
         getViewState().showMoviesList(response.getResults());
     }
 

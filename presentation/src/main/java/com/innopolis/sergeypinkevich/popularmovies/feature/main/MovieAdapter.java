@@ -31,18 +31,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         this.clickListener = clickListener;
     }
 
-    public void setData(List<Movie> movies) {
+    public void updateData(List<Movie> movies) {
         this.movies = movies;
         notifyDataSetChanged();
-    }
-
-    public Movie getMovieById(long id) {
-        for (Movie movie : movies) {
-            if (movie.getId() == id) {
-                return movie;
-            }
-        }
-        return null;
     }
 
     @Override
