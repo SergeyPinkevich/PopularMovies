@@ -18,6 +18,7 @@
         android:id="@+id/trailer_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:singleLine="true"
         android:text="Trailer 1"
         android:textSize="@dimen/trailer_text_size"
         android:layout_marginLeft="@dimen/trailer_text_margin"

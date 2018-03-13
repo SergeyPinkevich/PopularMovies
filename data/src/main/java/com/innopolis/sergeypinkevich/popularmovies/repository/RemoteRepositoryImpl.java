@@ -3,6 +3,7 @@ package com.innopolis.sergeypinkevich.popularmovies.repository;
 import com.innopolis.data.BuildConfig;
 import com.innopolis.sergeypinkevich.popularmovies.model.MovieDetails;
 import com.innopolis.sergeypinkevich.popularmovies.model.MovieServerResponse;
+import com.innopolis.sergeypinkevich.popularmovies.model.ReviewServerResponse;
 import com.innopolis.sergeypinkevich.popularmovies.model.TrailerServerResponse;
 import com.innopolis.sergeypinkevich.popularmovies.network.ApiService;
 import com.innopolis.sergeypinkevich.popularmovies.network.RemoteRepository;
@@ -44,5 +45,10 @@ public class RemoteRepositoryImpl implements RemoteRepository {
     @Override
     public Single<TrailerServerResponse> getMovieTrailers(long id) {
         return apiService.getMovieTrailers(id, API_KEY);
+    }
+
+    @Override
+    public Single<ReviewServerResponse> getMovieReview(long id) {
+        return apiService.getMovieReviews(id, API_KEY);
     }
 }
