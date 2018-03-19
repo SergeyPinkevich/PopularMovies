@@ -5,4 +5,6 @@
     <string name="filter_rating">По рейтингу</string>
     <string name="error_message">Ошибка соединения с сервером</string>
     <string name="image_content_description">Постер к фильму</string>
+    <string name="details_fragment">Подробности</string>
+    <string name="reviews_fragment">Отзывы</string>
 </resources>

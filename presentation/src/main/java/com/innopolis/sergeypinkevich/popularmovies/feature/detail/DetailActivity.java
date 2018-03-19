@@ -1,130 +1,52 @@
 package com.innopolis.sergeypinkevich.popularmovies.feature.detail;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.innopolis.sergeypinkevich.popularmovies.R;
-import com.innopolis.sergeypinkevich.popularmovies.feature.main.MainActivity;
-import com.innopolis.sergeypinkevich.popularmovies.model.Trailer;
-import com.innopolis.sergeypinkevich.popularmovies.repository.RemoteRepositoryImpl;
-import com.squareup.picasso.Picasso;
+import com.innopolis.sergeypinkevich.popularmovies.feature.review.ReviewFragment;
 
-import java.util.List;
-
-import javax.inject.Inject;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import es.dmoral.toasty.Toasty;
-import internal.di.BaseApp;
 
-public class DetailActivity extends AppCompatActivity implements DetailView {
+public class DetailActivity extends AppCompatActivity {
 
-    public static final long WRONG_ID = -1;
-
-    @BindView(R.id.movie_title)
-    TextView movieTitle;
-    @BindView(R.id.movie_poster)
-    ImageView moviePoster;
-    @BindView(R.id.movie_plot)
-    TextView moviePlot;
-    @BindView(R.id.movie_rating)
-    TextView movieRating;
-    @BindView(R.id.movie_release_date)
-    TextView movieReleaseDate;
-    @BindView(R.id.progress_bar)
-    ProgressBar progressBar;
-    @BindView(R.id.trailers_list)
-    RecyclerView recyclerViewTrailers;
-
-    @Inject
-    @InjectPresenter
-    DetailPresenter presenter;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.view_pager)
+    ViewPager viewPager;
+    @BindView(R.id.tabs)
+    TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        BaseApp.component.inject(this);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
         ButterKnife.bind(this);
 
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        presenter.attachView(this);
-        if (getIntent() != null) {
-            presenter.getMovieDetailsById(getIntent().getLongExtra(MainActivity.MOVIE_DETAIL_EXTRA, WRONG_ID));
-            presenter.getMovieTrailersById(getIntent().getLongExtra(MainActivity.MOVIE_DETAIL_EXTRA, WRONG_ID));
-        }
+        setupViewPager();
     }
 
-    @Override
-    public void showTitle(String title) {
-        movieTitle.setText(title);
-    }
-
-    @Override
-    public void showPoster(String posterPath) {
-        Picasso.with(this).load(RemoteRepositoryImpl.IMAGE_PATH + posterPath).into(moviePoster);
-    }
-
-    @Override
-    public void showPlot(String plot) {
-        moviePlot.setText(plot);
-    }
-
-    @Override
-    public void showRating(double rating) {
-        movieRating.setText(String.valueOf(rating));
-    }
-
-    @Override
-    public void showReleaseDate(String date) {
-        movieReleaseDate.setText(date);
-    }
-
-    @Override
-    public void showTrailers(List<Trailer> trailerList) {
-        recyclerViewTrailers.setLayoutManager(new LinearLayoutManager(this));
-        TrailerAdapter adapter = new TrailerAdapter((listener, position) -> presenter.openTrailer(trailerList.get(position).getKey()));
-        adapter.updateData(trailerList);
-        recyclerViewTrailers.setAdapter(adapter);
-    }
-
-    @Override
-    public void openTrailer(Intent intent) {
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
-        }
-    }
-
-    @Override
-    public void showErrorMessage() {
-        Toasty.error(this, getString(R.string.error_message), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void showProgress() {
-        progressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideProgress() {
-        progressBar.setVisibility(View.GONE);
+    private void setupViewPager() {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new DetailFragment(), getString(R.string.details_fragment));
+        adapter.addFragment(new ReviewFragment(), getString(R.string.reviews_fragment));
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     @Override
@@ -135,8 +57,33 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void finishView() {
-        onBackPressed();
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+
+        private ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
+        private ArrayList<String> tabsTitles = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager fragmentManager) {
+            super(fragmentManager);
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            fragmentArrayList.add(fragment);
+            tabsTitles.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return tabsTitles.get(position);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return fragmentArrayList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return fragmentArrayList.size();
+        }
     }
 }

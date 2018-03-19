@@ -1,72 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_algorithm_details"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".feature.detail.DetailActivity">
 
-    <android.support.constraint.ConstraintLayout
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/movie_detail_padding"
-        tools:context="com.innopolis.sergeypinkevich.popularmovies.feature.detail.DetailActivity">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <TextView
-            android:id="@+id/movie_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/movie_detail_title" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-        <TextView
-            android:id="@+id/movie_release_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/movie_vertical_margin"
-            app:layout_constraintTop_toBottomOf="@id/movie_title" />
-
-        <ImageView
-            android:id="@+id/movie_poster"
-            android:contentDescription="@string/image_content_description"
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/movie_vertical_margin"
-            android:scaleType="fitStart"
-            app:layout_constraintTop_toBottomOf="@id/movie_release_date" />
+            app:tabMode="fixed"
+            app:tabGravity="fill"/>
 
-        <TextView
-            android:id="@+id/movie_plot"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/movie_vertical_margin"
-            app:layout_constraintTop_toBottomOf="@id/movie_poster" />
+    </android.support.design.widget.AppBarLayout>
 
-        <TextView
-            android:id="@+id/movie_rating"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/movie_vertical_margin"
-            android:textSize="@dimen/movie_detail_rating_size"
-            app:layout_constraintTop_toBottomOf="@id/movie_plot" />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_alignParentBottom="true"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/appBarLayout"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/trailers_list"
-            app:layout_constraintTop_toBottomOf="@id/movie_rating"
-            android:layout_marginTop="@dimen/movie_vertical_margin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            android:layout_width="34dp"
-            android:layout_height="34dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </android.support.constraint.ConstraintLayout>
-
-</ScrollView>
+</RelativeLayout>
