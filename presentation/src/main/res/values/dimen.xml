@@ -12,6 +12,6 @@
     <dimen name="trailer_padding">10dp</dimen>
     <dimen name="trailer_icon_size">40dp</dimen>
     <dimen name="trailer_text_size">18sp</dimen>
-    <dimen name="trailer_text_margin">30dp</dimen>
+    <dimen name="trailer_text_margin">15dp</dimen>
     <dimen name="review_progress">40dp</dimen>
 </resources>
