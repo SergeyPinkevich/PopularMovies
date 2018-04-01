@@ -24,6 +24,11 @@
         </activity>
         <activity android:name=".feature.detail.DetailActivity"
                   android:theme="@style/MyMaterialTheme"/>
+        
+        <provider
+            android:name=".database.FavouriteMoviesContentProvider"
+            android:authorities="com.innopolis.sergeypinkevich.popularmovies"
+            android:exported="true"/>
     </application>
 
 </manifest>

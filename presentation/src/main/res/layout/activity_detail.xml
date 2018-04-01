@@ -38,4 +38,14 @@
         android:layout_width="match_parent"
         android:layout_below="@+id/appBarLayout"/>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/is_favourite_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/ic_favourite_off" />
+
 </RelativeLayout>

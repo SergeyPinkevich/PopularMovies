@@ -1,6 +1,7 @@
 package com.innopolis.sergeypinkevich.popularmovies.feature.detail;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -26,6 +27,8 @@ public class DetailActivity extends AppCompatActivity {
     ViewPager viewPager;
     @BindView(R.id.tabs)
     TabLayout tabLayout;
+    @BindView(R.id.is_favourite_button)
+    FloatingActionButton favouriteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
