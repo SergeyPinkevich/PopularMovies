@@ -35,9 +35,10 @@ import internal.di.BaseApp;
  * @author Sergey Pinkevich
  */
 
-public class DetailFragment extends Fragment implements DetailView {
+public class DetailFragmentFragment extends Fragment implements DetailFragmentView {
 
     public static final long WRONG_ID = -1;
+    private long movieId;
 
     @BindView(R.id.movie_title)
     TextView movieTitle;
@@ -56,9 +57,9 @@ public class DetailFragment extends Fragment implements DetailView {
 
     @Inject
     @InjectPresenter
-    DetailPresenter presenter;
+    DetailFragmentPresenter presenter;
 
-    public DetailFragment() {}
+    public DetailFragmentFragment() {}
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {

@@ -16,4 +16,6 @@ public interface LocalRepository {
     Single<MovieServerResponse> getTopRatedMoviesFromDatabase();
 
     Single<MovieDetails> getMovieDetailsFromDatabase(long id);
+
+    Single<Boolean> changeMovieIsFavourite(long movieId);
 }

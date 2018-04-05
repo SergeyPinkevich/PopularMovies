@@ -24,4 +24,9 @@ public class RxSchedulersImpl implements RxScheduler {
     public Scheduler getNetwork() {
         return Schedulers.io();
     }
+
+    @Override
+    public Scheduler getDatabase() {
+        return Schedulers.io();
+    }
 }

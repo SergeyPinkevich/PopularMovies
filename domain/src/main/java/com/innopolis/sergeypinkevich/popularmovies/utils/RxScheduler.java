@@ -11,4 +11,6 @@ public interface RxScheduler {
     Scheduler getMain();
 
     Scheduler getNetwork();
+
+    Scheduler getDatabase();
 }

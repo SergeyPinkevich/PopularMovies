@@ -1,5 +1,8 @@
 package internal.di.module;
 
+import android.content.Context;
+
+import com.innopolis.sergeypinkevich.popularmovies.database.FavouriteMovieDatabaseHelper;
 import com.innopolis.sergeypinkevich.popularmovies.network.ApiService;
 import com.innopolis.sergeypinkevich.popularmovies.network.LocalRepository;
 import com.innopolis.sergeypinkevich.popularmovies.network.RemoteRepository;
@@ -10,6 +13,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import internal.di.scope.ApplicationContext;
 
 /**
  * @author Sergey Pinkevich
@@ -25,7 +29,13 @@ public class RepositoryModule {
 
     @Singleton
     @Provides
-    LocalRepository provideLocalRepository() {
-        return new LocalRepositoryImpl();
+    FavouriteMovieDatabaseHelper provideDatabaseHelper(@ApplicationContext Context context) {
+        return new FavouriteMovieDatabaseHelper(context);
+    }
+
+    @Singleton
+    @Provides
+    LocalRepository provideLocalRepository(FavouriteMovieDatabaseHelper databaseHelper) {
+        return new LocalRepositoryImpl(databaseHelper);
     }
 }

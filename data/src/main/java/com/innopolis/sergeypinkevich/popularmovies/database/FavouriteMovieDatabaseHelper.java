@@ -8,11 +8,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.innopolis.sergeypinkevich.popularmovies.model.MovieDetails;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * @author Sergey Pinkevich
  */
-
+@Singleton
 public class FavouriteMovieDatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "favourites.db";
