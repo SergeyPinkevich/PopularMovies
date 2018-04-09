@@ -1,10 +1,9 @@
 package com.innopolis.sergeypinkevich.popularmovies.usecase;
 
+import com.innopolis.sergeypinkevich.popularmovies.model.MovieDetails;
 import com.innopolis.sergeypinkevich.popularmovies.network.LocalRepository;
 
 import javax.inject.Inject;
-
-import io.reactivex.Single;
 
 /**
  * @author Sergey Pinkevich
@@ -19,7 +18,11 @@ public class FavouriteMovieUseCase {
         this.localRepository = localRepository;
     }
 
-    public Single<Boolean> changeMovieIsFavourite(long movieId) {
-        return localRepository.changeMovieIsFavourite(movieId);
+    public void makeFavourite(MovieDetails movieDetails) {
+        localRepository.addFavouriteMovie(movieDetails);
+    }
+
+    public void makeUnfavourite(long movieId) {
+        localRepository.removeFavouriteMovie(movieId);
     }
 }

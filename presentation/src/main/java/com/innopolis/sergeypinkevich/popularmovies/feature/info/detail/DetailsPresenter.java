@@ -1,4 +1,4 @@
-package com.innopolis.sergeypinkevich.popularmovies.feature.detail;
+package com.innopolis.sergeypinkevich.popularmovies.feature.info.detail;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -17,7 +17,7 @@ import javax.inject.Inject;
  * @author Sergey Pinkevich
  */
 @InjectViewState
-public class DetailFragmentPresenter extends MvpPresenter<DetailFragmentView> {
+public class DetailsPresenter extends MvpPresenter<DetailsView> {
 
     public static final String YOUTUBE_URL = "https://youtube.com/watch?v=";
 
@@ -26,7 +26,7 @@ public class DetailFragmentPresenter extends MvpPresenter<DetailFragmentView> {
     private RxScheduler rxScheduler;
 
     @Inject
-    public DetailFragmentPresenter(MovieDetailsUseCase movieDetailsUseCase, TrailersUseCase trailersUseCase, RxScheduler rxScheduler) {
+    public DetailsPresenter(MovieDetailsUseCase movieDetailsUseCase, TrailersUseCase trailersUseCase, RxScheduler rxScheduler) {
         this.movieDetailsUseCase = movieDetailsUseCase;
         this.trailersUseCase = trailersUseCase;
         this.rxScheduler = rxScheduler;

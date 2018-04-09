@@ -1,4 +1,4 @@
-package com.innopolis.sergeypinkevich.popularmovies.feature.detail;
+package com.innopolis.sergeypinkevich.popularmovies.feature.info;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -14,8 +14,9 @@ import android.widget.Toast;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.innopolis.sergeypinkevich.popularmovies.R;
-import com.innopolis.sergeypinkevich.popularmovies.feature.main.MainActivity;
-import com.innopolis.sergeypinkevich.popularmovies.feature.review.ReviewFragment;
+import com.innopolis.sergeypinkevich.popularmovies.feature.info.detail.DetailsFragment;
+import com.innopolis.sergeypinkevich.popularmovies.feature.info.review.ReviewFragment;
+import com.innopolis.sergeypinkevich.popularmovies.model.MovieDetails;
 
 import java.util.ArrayList;
 
@@ -26,7 +27,7 @@ import butterknife.ButterKnife;
 import es.dmoral.toasty.Toasty;
 import internal.di.BaseApp;
 
-public class DetailActivity extends AppCompatActivity implements DetailView {
+public class InfoActivity extends AppCompatActivity implements InfoView {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -39,7 +40,10 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
 
     @Inject
     @InjectPresenter
-    DetailPresenter presenter;
+    InfoPresenter presenter;
+
+    private MovieDetails movieDetails;
+    private boolean isSelectedAsFavouriteNow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,13 +61,12 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         setupViewPager();
-        long movieId = getIntent().getLongExtra(MainActivity.MOVIE_DETAIL_EXTRA, -1);
-        favouriteButton.setOnClickListener(listener -> presenter.changeMovieIsFavourite(movieId));
+        favouriteButton.setOnClickListener(view -> presenter.changeMovieIsFavourite(isSelectedAsFavouriteNow, movieDetails));
     }
 
     private void setupViewPager() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new DetailFragmentFragment(), getString(R.string.details_fragment));
+        adapter.addFragment(new DetailsFragment(), getString(R.string.details_fragment));
         adapter.addFragment(new ReviewFragment(), getString(R.string.reviews_fragment));
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
@@ -80,11 +83,13 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     @Override
     public void showMovieIsFavourite() {
         favouriteButton.setImageResource(R.drawable.ic_favourite_on);
+        isSelectedAsFavouriteNow = true;
     }
 
     @Override
     public void showMovieIsNotFavourite() {
         favouriteButton.setImageResource(R.drawable.ic_favourite_off);
+        isSelectedAsFavouriteNow = false;
     }
 
     @Override

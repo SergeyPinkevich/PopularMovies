@@ -1,4 +1,4 @@
-package com.innopolis.sergeypinkevich.popularmovies.feature.detail;
+package com.innopolis.sergeypinkevich.popularmovies.feature.info.trailer;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;

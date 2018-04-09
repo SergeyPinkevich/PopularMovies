@@ -1,10 +1,10 @@
 package internal.di.component;
 
-import com.innopolis.sergeypinkevich.popularmovies.feature.detail.DetailActivity;
-import com.innopolis.sergeypinkevich.popularmovies.feature.detail.DetailFragmentFragment;
+import com.innopolis.sergeypinkevich.popularmovies.feature.info.InfoActivity;
+import com.innopolis.sergeypinkevich.popularmovies.feature.info.detail.DetailsFragment;
+import com.innopolis.sergeypinkevich.popularmovies.feature.info.review.ReviewFragment;
 import com.innopolis.sergeypinkevich.popularmovies.feature.main.MainActivity;
 import com.innopolis.sergeypinkevich.popularmovies.feature.main.MainPresenter;
-import com.innopolis.sergeypinkevich.popularmovies.feature.review.ReviewFragment;
 import com.innopolis.sergeypinkevich.popularmovies.feature.splash.SplashActivity;
 import com.innopolis.sergeypinkevich.popularmovies.feature.splash.SplashPresenter;
 
@@ -31,9 +31,9 @@ public interface AppComponent {
 
     void inject(MainPresenter presenter);
 
-    void inject(DetailActivity activity);
+    void inject(InfoActivity activity);
 
-    void inject(DetailFragmentFragment fragment);
+    void inject(DetailsFragment fragment);
 
     void inject(ReviewFragment fragment);
 }

@@ -1,4 +1,4 @@
-package com.innopolis.sergeypinkevich.popularmovies.feature.review;
+package com.innopolis.sergeypinkevich.popularmovies.feature.info.review;
 
 import com.arellomobile.mvp.MvpView;
 import com.innopolis.sergeypinkevich.popularmovies.model.Review;

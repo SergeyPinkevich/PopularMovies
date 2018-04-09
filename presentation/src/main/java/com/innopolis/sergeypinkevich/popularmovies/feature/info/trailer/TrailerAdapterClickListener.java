@@ -1,4 +1,4 @@
-package com.innopolis.sergeypinkevich.popularmovies.feature.detail;
+package com.innopolis.sergeypinkevich.popularmovies.feature.info.trailer;
 
 import android.view.View;
 

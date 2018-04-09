@@ -1,4 +1,4 @@
-package com.innopolis.sergeypinkevich.popularmovies.feature.detail;
+package com.innopolis.sergeypinkevich.popularmovies.feature.info.detail;
 
 import android.content.Intent;
 
@@ -11,7 +11,7 @@ import java.util.List;
  * @author Sergey Pinkevich
  */
 
-public interface DetailFragmentView extends MvpView {
+public interface DetailsView extends MvpView {
 
     void showProgress();
 

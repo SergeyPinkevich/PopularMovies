@@ -1,4 +1,4 @@
-package com.innopolis.sergeypinkevich.popularmovies.feature.detail;
+package com.innopolis.sergeypinkevich.popularmovies.feature.info.detail;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.innopolis.sergeypinkevich.popularmovies.R;
+import com.innopolis.sergeypinkevich.popularmovies.feature.info.trailer.TrailerAdapter;
 import com.innopolis.sergeypinkevich.popularmovies.feature.main.MainActivity;
 import com.innopolis.sergeypinkevich.popularmovies.model.Trailer;
 import com.innopolis.sergeypinkevich.popularmovies.repository.RemoteRepositoryImpl;
@@ -35,10 +36,9 @@ import internal.di.BaseApp;
  * @author Sergey Pinkevich
  */
 
-public class DetailFragmentFragment extends Fragment implements DetailFragmentView {
+public class DetailsFragment extends Fragment implements DetailsView {
 
     public static final long WRONG_ID = -1;
-    private long movieId;
 
     @BindView(R.id.movie_title)
     TextView movieTitle;
@@ -57,9 +57,9 @@ public class DetailFragmentFragment extends Fragment implements DetailFragmentVi
 
     @Inject
     @InjectPresenter
-    DetailFragmentPresenter presenter;
+    DetailsPresenter presenter;
 
-    public DetailFragmentFragment() {}
+    public DetailsFragment() {}
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {

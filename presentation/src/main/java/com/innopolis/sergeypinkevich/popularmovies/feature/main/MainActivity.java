@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.innopolis.sergeypinkevich.popularmovies.R;
-import com.innopolis.sergeypinkevich.popularmovies.feature.detail.DetailActivity;
+import com.innopolis.sergeypinkevich.popularmovies.feature.info.InfoActivity;
 import com.innopolis.sergeypinkevich.popularmovies.feature.splash.SplashActivity;
 import com.innopolis.sergeypinkevich.popularmovies.model.Movie;
 
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     @Override
     public void showMovieDetailScreen(long movieId) {
-        Intent intent = new Intent(this, DetailActivity.class);
+        Intent intent = new Intent(this, InfoActivity.class);
         intent.putExtra(MOVIE_DETAIL_EXTRA, movieId);
         startActivity(intent);
     }
