@@ -60,6 +60,10 @@ public class MainPresenter extends MvpPresenter<MainView> {
         getViewState().showMovieDetailScreen(movieId);
     }
 
+    public boolean isFavourite() {
+        return wrapper.getFilterTypeFromSharedPreference().equals(FAVOURITES_FILTER);
+    }
+
     public void filterFavourites() {
         getViewState().showProgress();
         try {

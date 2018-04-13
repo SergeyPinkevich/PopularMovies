@@ -16,6 +16,7 @@ public class MovieDetailsToMovieConverter {
         List<Movie> movies = new ArrayList<>();
         for (MovieDetails details : movieDetails) {
             Movie movie = new Movie();
+            movie.setId(details.getId());
             movie.setTitle(details.getTitle());
             movie.setPosterPath(details.getPosterPath());
             movie.setVoteAverage(details.getVoteAverage());

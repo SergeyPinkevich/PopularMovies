@@ -49,8 +49,17 @@ public class MainActivity extends AppCompatActivity implements MainView {
         ButterKnife.bind(this);
 
         presenter.attachView(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         if (getIntent() != null && getIntent().getParcelableExtra(SplashActivity.MOVIES_LIST) != null) {
-            presenter.showDataOnMainScreen(getIntent().getParcelableExtra(SplashActivity.MOVIES_LIST));
+            if (presenter.isFavourite()) {
+                presenter.filterFavourites();
+            } else {
+                presenter.showDataOnMainScreen(getIntent().getParcelableExtra(SplashActivity.MOVIES_LIST));
+            }
         }
     }
 
