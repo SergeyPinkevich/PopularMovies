@@ -29,6 +29,7 @@ public class FavouriteMovieContract {
 
         public static final String TABLE_NAME = "favourites";
 
+        public static final String MOVIE_ID = "movieId";
         public static final String COLUMN_TITLE = "title";
         public static final String COLUMN_POSTER = "poster";
         public static final String COLUMN_RELEASE_DATE = "releaseDate";
@@ -36,7 +37,8 @@ public class FavouriteMovieContract {
         public static final String COLUMN_PLOT = "plot";
 
         public static final String CREATE_TABLE_QUERY = "CREATE TABLE " + FavouriteMovieEntry.TABLE_NAME + " (" +
-                _ID + " INTEGER PRIMARY KEY," +
+                _ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                MOVIE_ID + " INTEGER NOT NULL," +
                 COLUMN_TITLE + " TEXT NOT NULL," +
                 COLUMN_POSTER + " TEXT NOT NULL," +
                 COLUMN_RELEASE_DATE + " TEXT NOT NULL," +

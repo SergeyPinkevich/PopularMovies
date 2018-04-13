@@ -68,6 +68,7 @@ public class InfoActivity extends AppCompatActivity implements InfoView {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        presenter.checkIsCurrentMovieInFavouriteCategory(getIntent().getLongExtra(MainActivity.MOVIE_DETAIL_EXTRA, WRONG_ID));
         presenter.getMovieDetailsById(getIntent().getLongExtra(MainActivity.MOVIE_DETAIL_EXTRA, WRONG_ID));
         favouriteButton.setOnClickListener(view -> presenter.changeMovieIsFavourite(isSelectedAsFavouriteNow, movieDetails));
     }

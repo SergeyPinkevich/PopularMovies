@@ -40,7 +40,8 @@ public class FavouriteMovieDatabaseHelper extends SQLiteOpenHelper {
 
     public ContentValues getContentValues(MovieDetails details) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(FavouriteMovieContract.FavouriteMovieEntry.COLUMN_TITLE, details.getOriginalTitle());
+        contentValues.put(FavouriteMovieContract.FavouriteMovieEntry.MOVIE_ID, details.getId());
+        contentValues.put(FavouriteMovieContract.FavouriteMovieEntry.COLUMN_TITLE, details.getTitle());
         contentValues.put(FavouriteMovieContract.FavouriteMovieEntry.COLUMN_RELEASE_DATE, details.getReleaseDate());
         contentValues.put(FavouriteMovieContract.FavouriteMovieEntry.COLUMN_POSTER, details.getPosterPath());
         contentValues.put(FavouriteMovieContract.FavouriteMovieEntry.COLUMN_RATING, details.getVoteAverage());

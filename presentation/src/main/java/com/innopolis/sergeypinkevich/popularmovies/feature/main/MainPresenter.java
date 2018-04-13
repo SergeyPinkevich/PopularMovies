@@ -62,18 +62,15 @@ public class MainPresenter extends MvpPresenter<MainView> {
 
     public void filterFavourites() {
         getViewState().showProgress();
-        favouriteMovieUseCase.get().getFavouriteMoviesList()
-                .subscribeOn(rxScheduler.getDatabase())
-                .observeOn(rxScheduler.getMain())
-                .doAfterTerminate(() -> getViewState().hideProgress())
-                .subscribe(data -> {
-                            showFavoriteMovies(data);
-                            wrapper.putFilterTypeToSharedPreferences(FAVOURITES_FILTER);
-                        },
-                        exception -> {
-                            Log.e("MainPresenter", exception.getMessage(), exception);
-                            getViewState().showErrorMessage();
-                        });
+        try {
+            List<MovieDetails> favouriteMoviesList = favouriteMovieUseCase.get().getFavouriteMoviesList();
+            getViewState().hideProgress();
+            showFavoriteMovies(favouriteMoviesList);
+            wrapper.putFilterTypeToSharedPreferences(FAVOURITES_FILTER);
+        } catch (Exception ex) {
+            Log.e("MainPresenter", ex.getMessage(), ex);
+            getViewState().showErrorMessage();
+        }
     }
 
     public void filterMoviesByPopularity() {

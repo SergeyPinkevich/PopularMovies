@@ -38,6 +38,14 @@ public class InfoPresenter extends MvpPresenter<InfoView> {
                 });
     }
 
+    public void checkIsCurrentMovieInFavouriteCategory(long id) {
+        if (favouriteMovieUseCase.isFavourite(id)) {
+            getViewState().showMovieIsFavourite();
+        } else {
+            getViewState().showMovieIsNotFavourite();
+        }
+    }
+
     public void changeMovieIsFavourite(boolean isSelectedAsFavouriteNow, MovieDetails movieDetails) {
         if (isSelectedAsFavouriteNow) {
             favouriteMovieUseCase.makeUnfavourite(movieDetails.getId());

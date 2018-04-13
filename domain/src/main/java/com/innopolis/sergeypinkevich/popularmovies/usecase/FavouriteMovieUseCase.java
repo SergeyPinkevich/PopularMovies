@@ -7,8 +7,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.Single;
-
 /**
  * @author Sergey Pinkevich
  */
@@ -22,12 +20,16 @@ public class FavouriteMovieUseCase {
         this.localRepository = localRepository;
     }
 
-    public Single<List<MovieDetails>> getFavouriteMoviesList() {
+    public List<MovieDetails> getFavouriteMoviesList() {
         return localRepository.getFavouriteMovies();
     }
 
     public void makeFavourite(MovieDetails movieDetails) {
         localRepository.addFavouriteMovie(movieDetails);
+    }
+
+    public boolean isFavourite(long movieId) {
+        return localRepository.isFavourite(movieId);
     }
 
     public void makeUnfavourite(long movieId) {

@@ -5,7 +5,6 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -57,7 +56,7 @@ public class FavouriteMoviesContentProvider extends ContentProvider {
                 cursor = database.query(FavouriteMovieContract.FavouriteMovieEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
                 break;
             case FAVOURITE_ID:
-                selection = FavouriteMovieContract.FavouriteMovieEntry._ID + "=?";
+                selection = FavouriteMovieContract.FavouriteMovieEntry.MOVIE_ID + "=?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 cursor = database.query(FavouriteMovieContract.FavouriteMovieEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
                 break;
@@ -81,16 +80,23 @@ public class FavouriteMoviesContentProvider extends ContentProvider {
         }
     }
 
+    /**
+     * Also checks if movie is already in "favourite" category or not. If it is not insert it to database,
+     * otherwise do nothing
+     */
     @Nullable
     @Override
     public Uri insert(@NonNull Uri uri, @Nullable ContentValues contentValues) {
-        long rowId = database.insert(FavouriteMovieContract.FavouriteMovieEntry.TABLE_NAME, "", contentValues);
-        if (rowId > 0) {
-            Uri uriOfNewRecord = ContentUris.withAppendedId(Uri.parse(FavouriteMovieContract.FavouriteMovieEntry.CONTENT_ITEM_TYPE), rowId);
-            getContext().getContentResolver().notifyChange(uriOfNewRecord, null);
-            return uriOfNewRecord;
+        long rowId;
+        if (!checkIfAlreadyExist(uri, contentValues.getAsInteger(FavouriteMovieContract.FavouriteMovieEntry.MOVIE_ID))) {
+            rowId = database.insert(FavouriteMovieContract.FavouriteMovieEntry.TABLE_NAME, "", contentValues);
+            if (rowId > 0) {
+                Uri uriOfNewRecord = ContentUris.withAppendedId(Uri.parse(FavouriteMovieContract.FavouriteMovieEntry.CONTENT_ITEM_TYPE), rowId);
+                getContext().getContentResolver().notifyChange(uriOfNewRecord, null);
+                return uriOfNewRecord;
+            }
         }
-        throw new SQLException("Failed to add a record into " + uri);
+        return null;
     }
 
     @Override
@@ -102,7 +108,7 @@ public class FavouriteMoviesContentProvider extends ContentProvider {
                 break;
             case FAVOURITE_ID:
                 String id = uri.getPathSegments().get(1);
-                countOfDeletedRows = database.delete(FavouriteMovieContract.FavouriteMovieEntry.TABLE_NAME, FavouriteMovieContract.FavouriteMovieEntry._ID + "=" + id, selectionArgs);
+                countOfDeletedRows = database.delete(FavouriteMovieContract.FavouriteMovieEntry.TABLE_NAME, FavouriteMovieContract.FavouriteMovieEntry.MOVIE_ID + "=" + id, selectionArgs);
                 break;
             default:
                 throw new IllegalArgumentException("Unknown URI " + uri + " with match " + matcher.match(uri));
@@ -120,12 +126,22 @@ public class FavouriteMoviesContentProvider extends ContentProvider {
                 break;
             case FAVOURITE_ID:
                 String id = uri.getPathSegments().get(1);
-                countOfUpdatedRows = database.delete(FavouriteMovieContract.FavouriteMovieEntry.TABLE_NAME, FavouriteMovieContract.FavouriteMovieEntry._ID + "=" + id, selectionArgs);
+                countOfUpdatedRows = database.delete(FavouriteMovieContract.FavouriteMovieEntry.TABLE_NAME, FavouriteMovieContract.FavouriteMovieEntry.MOVIE_ID + "=" + id, selectionArgs);
                 break;
             default:
                 throw new IllegalArgumentException("Unknown URI " + uri + " with match " + matcher.match(uri));
         }
         getContext().getContentResolver().notifyChange(uri, null);
         return countOfUpdatedRows;
+    }
+
+    private boolean checkIfAlreadyExist(Uri uri, long movieId) {
+        Cursor cursor = query(uri, null, FavouriteMovieContract.FavouriteMovieEntry.MOVIE_ID + " = ?", new String[] {String.valueOf(movieId)}, null);
+        if (cursor.moveToFirst()) {
+            cursor.close();
+            return true;
+        }
+        cursor.close();
+        return false;
     }
 }
