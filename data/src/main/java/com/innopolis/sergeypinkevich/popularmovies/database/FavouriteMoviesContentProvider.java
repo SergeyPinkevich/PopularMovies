@@ -11,6 +11,8 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import javax.inject.Inject;
+
 /**
  * @author Sergey Pinkevich
  */
@@ -24,10 +26,13 @@ public class FavouriteMoviesContentProvider extends ContentProvider {
     private FavouriteMovieDatabaseHelper databaseHelper;
     private SQLiteDatabase database;
 
+    @Inject
+    public FavouriteMoviesContentProvider() {}
+
     static {
         matcher = new UriMatcher(UriMatcher.NO_MATCH);
-        matcher.addURI(FavouriteMovieContract.CONTENT_AUTHORITY, FavouriteMovieContract.FAVOURITE_PATH, FAVOURITE_MOVIES);
-        matcher.addURI(FavouriteMovieContract.CONTENT_AUTHORITY, FavouriteMovieContract.FAVOURITE_PATH  + "/#",  FAVOURITE_ID);
+        matcher.addURI(FavouriteMovieContract.CONTENT_AUTHORITY, FavouriteMovieContract.FAVOURITE_BASE_PATH, FAVOURITE_MOVIES);
+        matcher.addURI(FavouriteMovieContract.CONTENT_AUTHORITY, FavouriteMovieContract.FAVOURITE_BASE_PATH + "/#",  FAVOURITE_ID);
     }
 
     @Override

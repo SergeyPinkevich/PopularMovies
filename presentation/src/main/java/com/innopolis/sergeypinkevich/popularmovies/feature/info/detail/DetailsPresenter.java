@@ -7,7 +7,6 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.innopolis.sergeypinkevich.popularmovies.converter.DateToStringConverter;
 import com.innopolis.sergeypinkevich.popularmovies.model.MovieDetails;
-import com.innopolis.sergeypinkevich.popularmovies.usecase.MovieDetailsUseCase;
 import com.innopolis.sergeypinkevich.popularmovies.usecase.TrailersUseCase;
 import com.innopolis.sergeypinkevich.popularmovies.utils.RxScheduler;
 
@@ -22,26 +21,12 @@ public class DetailsPresenter extends MvpPresenter<DetailsView> {
     public static final String YOUTUBE_URL = "https://youtube.com/watch?v=";
 
     private TrailersUseCase trailersUseCase;
-    private MovieDetailsUseCase movieDetailsUseCase;
     private RxScheduler rxScheduler;
 
     @Inject
-    public DetailsPresenter(MovieDetailsUseCase movieDetailsUseCase, TrailersUseCase trailersUseCase, RxScheduler rxScheduler) {
-        this.movieDetailsUseCase = movieDetailsUseCase;
+    public DetailsPresenter(TrailersUseCase trailersUseCase, RxScheduler rxScheduler) {
         this.trailersUseCase = trailersUseCase;
         this.rxScheduler = rxScheduler;
-    }
-
-    public void getMovieDetailsById(long id) {
-        getViewState().showProgress();
-        movieDetailsUseCase.getMovieDetails(id)
-                .subscribeOn(rxScheduler.getNetwork())
-                .observeOn(rxScheduler.getMain())
-                .doAfterTerminate(() -> getViewState().hideProgress())
-                .subscribe(data -> showMovieDetails(data), exception -> {
-                    getViewState().showErrorMessage();
-                    getViewState().finishView();
-                });
     }
 
     public void getMovieTrailersById(long id) {

@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.innopolis.sergeypinkevich.popularmovies.model.MovieDetails;
 
@@ -30,7 +31,9 @@ public class FavouriteMovieDatabaseHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
+        Log.w("DatabaseHelper", "Upgrading database. Existing contents will be lost. ["
+                + oldVersion + "]->[" + newVersion + "]");
         sqLiteDatabase.execSQL(FavouriteMovieContract.FavouriteMovieEntry.DELETE_TABLE_QUERY);
         onCreate(sqLiteDatabase);
     }

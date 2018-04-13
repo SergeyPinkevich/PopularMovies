@@ -1,8 +1,7 @@
 package com.innopolis.sergeypinkevich.popularmovies.repository;
 
-import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
 import com.innopolis.sergeypinkevich.popularmovies.database.FavouriteMovieContract;
 import com.innopolis.sergeypinkevich.popularmovies.database.FavouriteMovieDatabaseHelper;
@@ -23,10 +22,12 @@ import io.reactivex.Single;
 
 public class LocalRepositoryImpl implements LocalRepository {
 
+    private Context context;
     private FavouriteMovieDatabaseHelper databaseHelper;
 
     @Inject
-    public LocalRepositoryImpl(FavouriteMovieDatabaseHelper databaseHelper) {
+    public LocalRepositoryImpl(Context context, FavouriteMovieDatabaseHelper databaseHelper) {
+        this.context = context;
         this.databaseHelper = databaseHelper;
     }
 
@@ -41,60 +42,40 @@ public class LocalRepositoryImpl implements LocalRepository {
     }
 
     @Override
-    public Single<MovieDetails> getMovieDetailsFromDatabaseById(long movieId) {
-        SQLiteDatabase database = databaseHelper.getReadableDatabase();
-        Cursor cursor = database.query(FavouriteMovieContract.FavouriteMovieEntry.TABLE_NAME,
-                null,
-                FavouriteMovieContract.FavouriteMovieEntry._ID + " = ?",
-                new String[]{String.valueOf(movieId)},
-                null,
-                null,
-                null);
-        cursor.moveToFirst();
-        MovieDetails movieDetails = createMovieDetailsFromCursor(cursor);
-        cursor.close();
-        database.close();
+    public Single<MovieDetails> getMovieDetailsFromDatabaseById(long id) {
+        return null;
+    }
+
+    @Override
+    public void addFavouriteMovie(MovieDetails movieDetails) {
+        context.getContentResolver().insert(FavouriteMovieContract.FavouriteMovieEntry.CONTENT_URI, databaseHelper.getContentValues(movieDetails));
+    }
+
+    @Override
+    public Single<List<MovieDetails>> getFavouriteMovies() {
+        List<MovieDetails> movieDetails = new ArrayList<>();
+        Cursor cursor = context.getContentResolver().query(FavouriteMovieContract.FavouriteMovieEntry.CONTENT_URI, null, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            while (cursor.isAfterLast() == false) {
+                movieDetails.add(createMovieDetailsFromCursor(cursor));
+                cursor.moveToNext();
+            }
+        }
         return Single.just(movieDetails);
+    }
+
+    @Override
+    public void removeFavouriteMovie(long movieId) {
+        context.getContentResolver().delete(FavouriteMovieContract.FavouriteMovieEntry.CONTENT_URI, FavouriteMovieContract.FavouriteMovieEntry._ID + " = ?" + movieId, null);
     }
 
     private MovieDetails createMovieDetailsFromCursor(Cursor cursor) {
         MovieDetails movieDetails = new MovieDetails();
         movieDetails.setTitle(cursor.getString(cursor.getColumnIndex(FavouriteMovieContract.FavouriteMovieEntry.COLUMN_TITLE)));
         movieDetails.setPosterPath(cursor.getString(cursor.getColumnIndex(FavouriteMovieContract.FavouriteMovieEntry.COLUMN_POSTER)));
-        movieDetails.setReleaseDate(cursor.getString(cursor.getColumnIndex(FavouriteMovieContract.FavouriteMovieEntry.COLUMN_RELEASE_DATE)));
         movieDetails.setVoteAverage(cursor.getDouble(cursor.getColumnIndex(FavouriteMovieContract.FavouriteMovieEntry.COLUMN_RATING)));
         movieDetails.setOverview(cursor.getString(cursor.getColumnIndex(FavouriteMovieContract.FavouriteMovieEntry.COLUMN_PLOT)));
+        movieDetails.setReleaseDate(cursor.getString(cursor.getColumnIndex(FavouriteMovieContract.FavouriteMovieEntry.COLUMN_RELEASE_DATE)));
         return movieDetails;
-    }
-
-    @Override
-    public void addFavouriteMovie(MovieDetails movieDetails) {
-        ContentValues contentValues = databaseHelper.getContentValues(movieDetails);
-        SQLiteDatabase database = databaseHelper.getWritableDatabase();
-        database.insert(FavouriteMovieContract.FavouriteMovieEntry.TABLE_NAME, null, contentValues);
-        database.close();
-    }
-
-    @Override
-    public Single<List<MovieDetails>> getFavouriteMovies() {
-        List<MovieDetails> movies = new ArrayList<>();
-        SQLiteDatabase database = databaseHelper.getReadableDatabase();
-        Cursor cursor = database.query(FavouriteMovieContract.FavouriteMovieEntry.TABLE_NAME, null, null, null, null, null, null);
-        if (cursor.moveToFirst()) {
-            while (!cursor.isAfterLast()) {
-                MovieDetails movieDetails = createMovieDetailsFromCursor(cursor);
-                movies.add(movieDetails);
-                cursor.moveToNext();
-            }
-        }
-        cursor.close();
-        database.close();
-        return Single.just(movies);
-    }
-
-    @Override
-    public void removeFavouriteMovie(long movieId) {
-        SQLiteDatabase database = databaseHelper.getWritableDatabase();
-        database.delete(FavouriteMovieContract.FavouriteMovieEntry.TABLE_NAME, FavouriteMovieContract.FavouriteMovieEntry._ID + " = ?" + movieId, null);
     }
 }

@@ -83,6 +83,9 @@ public class MainActivity extends AppCompatActivity implements MainView {
             case R.id.action_filter_top_rated:
                 presenter.filterMoviesByRating();
                 break;
+            case R.id.action_filter_favourites:
+                presenter.filterFavourites();
+                break;
         }
         return true;
     }

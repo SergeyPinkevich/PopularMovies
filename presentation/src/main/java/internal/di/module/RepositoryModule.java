@@ -35,7 +35,7 @@ public class RepositoryModule {
 
     @Singleton
     @Provides
-    LocalRepository provideLocalRepository(FavouriteMovieDatabaseHelper databaseHelper) {
-        return new LocalRepositoryImpl(databaseHelper);
+    LocalRepository provideLocalRepository(@ApplicationContext Context context, FavouriteMovieDatabaseHelper databaseHelper) {
+        return new LocalRepositoryImpl(context, databaseHelper);
     }
 }

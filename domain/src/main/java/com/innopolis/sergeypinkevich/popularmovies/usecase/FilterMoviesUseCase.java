@@ -14,6 +14,7 @@ public class FilterMoviesUseCase {
     public static final String DEFAULT_FILTER = "popular";
     public static final String POPULAR_FILTER = "popular";
     public static final String TOP_RATED_FILTER = "top_rated";
+    public static final String FAVOURITES_FILTER = "favourites";
 
     AndroidWrapper wrapper;
 
@@ -25,8 +26,10 @@ public class FilterMoviesUseCase {
     public UserChoice getUserLastChoice() {
         if (wrapper.getFilterTypeFromSharedPreference().equals(POPULAR_FILTER)) {
             return UserChoice.POPULAR;
-        } else {
+        } else if (wrapper.getFilterTypeFromSharedPreference().equals(TOP_RATED_FILTER)) {
             return UserChoice.TOP_RATED;
+        } else {
+            return UserChoice.FAVOURITE;
         }
     }
 }

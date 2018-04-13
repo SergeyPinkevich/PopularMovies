@@ -10,12 +10,15 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.innopolis.sergeypinkevich.popularmovies.R;
 import com.innopolis.sergeypinkevich.popularmovies.feature.info.detail.DetailsFragment;
 import com.innopolis.sergeypinkevich.popularmovies.feature.info.review.ReviewFragment;
+import com.innopolis.sergeypinkevich.popularmovies.feature.main.MainActivity;
 import com.innopolis.sergeypinkevich.popularmovies.model.MovieDetails;
 
 import java.util.ArrayList;
@@ -29,6 +32,9 @@ import internal.di.BaseApp;
 
 public class InfoActivity extends AppCompatActivity implements InfoView {
 
+    public static final String MOVIE_DETAILS = "movieDetails";
+    public static final long WRONG_ID = -1;
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.view_pager)
@@ -37,6 +43,8 @@ public class InfoActivity extends AppCompatActivity implements InfoView {
     TabLayout tabLayout;
     @BindView(R.id.is_favourite_button)
     FloatingActionButton favouriteButton;
+    @BindView(R.id.progress_bar)
+    ProgressBar progressBar;
 
     @Inject
     @InjectPresenter
@@ -60,16 +68,16 @@ public class InfoActivity extends AppCompatActivity implements InfoView {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        setupViewPager();
+        presenter.getMovieDetailsById(getIntent().getLongExtra(MainActivity.MOVIE_DETAIL_EXTRA, WRONG_ID));
         favouriteButton.setOnClickListener(view -> presenter.changeMovieIsFavourite(isSelectedAsFavouriteNow, movieDetails));
     }
 
-    private void setupViewPager() {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new DetailsFragment(), getString(R.string.details_fragment));
-        adapter.addFragment(new ReviewFragment(), getString(R.string.reviews_fragment));
-        viewPager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(viewPager);
+    private DetailsFragment buildDetailsFragment() {
+        DetailsFragment detailsFragment = new DetailsFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(MOVIE_DETAILS, movieDetails);
+        detailsFragment.setArguments(bundle);
+        return detailsFragment;
     }
 
     @Override
@@ -78,6 +86,16 @@ public class InfoActivity extends AppCompatActivity implements InfoView {
             onBackPressed();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void loadMovieDetails(MovieDetails movieDetails) {
+        this.movieDetails = movieDetails;
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(buildDetailsFragment(), getString(R.string.details_fragment));
+        adapter.addFragment(new ReviewFragment(), getString(R.string.reviews_fragment));
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     @Override
@@ -95,6 +113,16 @@ public class InfoActivity extends AppCompatActivity implements InfoView {
     @Override
     public void showErrorMessage() {
         Toasty.error(this, getString(R.string.error_message), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showProgress() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override

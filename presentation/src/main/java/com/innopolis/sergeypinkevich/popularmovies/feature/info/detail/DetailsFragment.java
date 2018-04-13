@@ -11,12 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.innopolis.sergeypinkevich.popularmovies.R;
+import com.innopolis.sergeypinkevich.popularmovies.feature.info.InfoActivity;
 import com.innopolis.sergeypinkevich.popularmovies.feature.info.trailer.TrailerAdapter;
 import com.innopolis.sergeypinkevich.popularmovies.feature.main.MainActivity;
 import com.innopolis.sergeypinkevich.popularmovies.model.Trailer;
@@ -50,8 +50,6 @@ public class DetailsFragment extends Fragment implements DetailsView {
     TextView movieRating;
     @BindView(R.id.movie_release_date)
     TextView movieReleaseDate;
-    @BindView(R.id.progress_bar)
-    ProgressBar progressBar;
     @BindView(R.id.trailers_list)
     RecyclerView recyclerViewTrailers;
 
@@ -68,7 +66,7 @@ public class DetailsFragment extends Fragment implements DetailsView {
 
         presenter.attachView(this);
         if (getActivity().getIntent() != null) {
-            presenter.getMovieDetailsById(getActivity().getIntent().getLongExtra(MainActivity.MOVIE_DETAIL_EXTRA, WRONG_ID));
+            presenter.showMovieDetails(getArguments().getParcelable(InfoActivity.MOVIE_DETAILS));
             presenter.getMovieTrailersById(getActivity().getIntent().getLongExtra(MainActivity.MOVIE_DETAIL_EXTRA, WRONG_ID));
         }
     }
@@ -123,16 +121,6 @@ public class DetailsFragment extends Fragment implements DetailsView {
     @Override
     public void showErrorMessage() {
         Toasty.error(getContext(), getString(R.string.error_message), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void showProgress() {
-        progressBar.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideProgress() {
-        progressBar.setVisibility(View.GONE);
     }
 
     @Override

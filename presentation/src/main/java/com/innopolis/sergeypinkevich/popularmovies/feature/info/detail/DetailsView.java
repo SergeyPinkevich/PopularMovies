@@ -13,10 +13,6 @@ import java.util.List;
 
 public interface DetailsView extends MvpView {
 
-    void showProgress();
-
-    void hideProgress();
-
     void showTitle(String title);
 
     void showPoster(String posterPath);
