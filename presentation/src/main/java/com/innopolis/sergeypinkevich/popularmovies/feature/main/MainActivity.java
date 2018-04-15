@@ -29,6 +29,7 @@ import internal.di.BaseApp;
 public class MainActivity extends AppCompatActivity implements MainView {
 
     public static final String MOVIE_DETAIL_EXTRA = "movieDetailExtra";
+    public static final String SCROLL_POSITION = "scrollPosition";
 
     @BindView(R.id.movies_list)
     RecyclerView recyclerViewMovies;
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Inject
     @InjectPresenter
     MainPresenter presenter;
+
+    private int scrollPosition = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +64,20 @@ public class MainActivity extends AppCompatActivity implements MainView {
                 presenter.showDataOnMainScreen(getIntent().getParcelableExtra(SplashActivity.MOVIES_LIST));
             }
         }
+        recyclerViewMovies.getLayoutManager().scrollToPosition(scrollPosition);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        scrollPosition = ((GridLayoutManager)recyclerViewMovies.getLayoutManager()).findFirstVisibleItemPosition();
+        outState.putInt(SCROLL_POSITION, scrollPosition);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        scrollPosition = savedInstanceState.getInt(SCROLL_POSITION);
     }
 
     @Override

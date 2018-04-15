@@ -8,14 +8,14 @@ import android.provider.BaseColumns;
  * @author Sergey Pinkevich
  */
 
-public class FavouriteMovieContract {
+public final class FavouriteMovieContract {
 
     public static final String CONTENT_AUTHORITY = "com.innopolis.sergeypinkevich.popularmovies";
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
     public static final String FAVOURITE_BASE_PATH = "favourites";
 
     private FavouriteMovieContract() {
-
+        throw new AssertionError("No instances for you!");
     }
 
     public static class FavouriteMovieEntry implements BaseColumns {
