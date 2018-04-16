@@ -16,6 +16,7 @@ import com.innopolis.sergeypinkevich.popularmovies.R;
 import com.innopolis.sergeypinkevich.popularmovies.feature.info.InfoActivity;
 import com.innopolis.sergeypinkevich.popularmovies.feature.splash.SplashActivity;
 import com.innopolis.sergeypinkevich.popularmovies.model.Movie;
+import com.innopolis.sergeypinkevich.popularmovies.model.MovieServerResponse;
 
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     public static final String MOVIE_DETAIL_EXTRA = "movieDetailExtra";
     public static final String SCROLL_POSITION = "scrollPosition";
+    public static final String MOVIE_DATA = "movieData";
 
     @BindView(R.id.movies_list)
     RecyclerView recyclerViewMovies;
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     MainPresenter presenter;
 
     private int scrollPosition = 0;
+    private MovieServerResponse serverResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +63,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
         if (getIntent() != null && getIntent().getParcelableExtra(SplashActivity.MOVIES_LIST) != null) {
             if (presenter.isFavourite()) {
                 presenter.filterFavourites();
+            } else if (serverResponse != null) {
+                presenter.showDataOnMainScreen(serverResponse);
             } else {
                 presenter.showDataOnMainScreen(getIntent().getParcelableExtra(SplashActivity.MOVIES_LIST));
             }
@@ -71,12 +76,14 @@ public class MainActivity extends AppCompatActivity implements MainView {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         scrollPosition = ((GridLayoutManager)recyclerViewMovies.getLayoutManager()).findFirstVisibleItemPosition();
+        outState.putParcelable(MOVIE_DATA, serverResponse);
         outState.putInt(SCROLL_POSITION, scrollPosition);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
+        serverResponse = savedInstanceState.getParcelable(MOVIE_DATA);
         scrollPosition = savedInstanceState.getInt(SCROLL_POSITION);
     }
 
@@ -98,6 +105,11 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     public void showErrorMessage() {
         Toasty.error(this, getString(R.string.error_message), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void saveToCache(MovieServerResponse response) {
+        serverResponse = response;
     }
 
     @Override

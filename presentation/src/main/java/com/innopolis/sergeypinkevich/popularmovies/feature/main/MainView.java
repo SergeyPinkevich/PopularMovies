@@ -4,6 +4,7 @@ import com.arellomobile.mvp.MvpView;
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 import com.innopolis.sergeypinkevich.popularmovies.model.Movie;
+import com.innopolis.sergeypinkevich.popularmovies.model.MovieServerResponse;
 
 import java.util.List;
 
@@ -22,4 +23,6 @@ public interface MainView extends MvpView {
     void showMovieDetailScreen(long movieId);
 
     void showErrorMessage();
+
+    void saveToCache(MovieServerResponse response);
 }

@@ -85,6 +85,7 @@ public class MainPresenter extends MvpPresenter<MainView> {
                 .doAfterTerminate(() -> getViewState().hideProgress())
                 .subscribe(data -> {
                             showDataOnMainScreen(data);
+                            getViewState().saveToCache(data);
                             wrapper.putFilterTypeToSharedPreferences(POPULAR_FILTER);
                         },
                         exception -> {
@@ -101,6 +102,7 @@ public class MainPresenter extends MvpPresenter<MainView> {
                 .doAfterTerminate(() -> getViewState().hideProgress())
                 .subscribe(data -> {
                             showDataOnMainScreen(data);
+                            getViewState().saveToCache(data);
                             wrapper.putFilterTypeToSharedPreferences(TOP_RATED_FILTER);
                         },
                         exception -> {
